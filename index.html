@@ -1,0 +1,2090 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>AutoCar BS - Checklist Entrada</title>
+
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+      /* --- CONFIGURAÇÕES VISUAIS (CSS) --- */
+      :root {
+        --bg-body: #09090a;
+        --bg-card: #202024;
+        --bg-input: #121214;
+        --border: #323238;
+        --text-primary: #e1e1e6;
+        --text-secondary: #8d8d99;
+        --primary: #ef4444;
+        --primary-hover: #dc2626;
+        --danger: #f75a68;
+        --success: #04d361;
+        --warning: #f59e0b;
+        --info: #3b82f6;
+      }
+      html[data-theme="light"] {
+        --bg-body: #f3f4f6;
+        --bg-card: #ffffff;
+        --bg-input: #f9fafb;
+        --border: #d1d5db;
+        --text-primary: #111827;
+        --text-secondary: #6b7280;
+        --primary: #ef4444;
+        --primary-hover: #dc2626;
+        --danger: #f75a68;
+        --success: #04d361;
+        --warning: #f59e0b;
+        --info: #3b82f6;
+      }
+      * {
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+      }
+      body {
+        font-family: "Segoe UI", "Roboto", sans-serif;
+        background-color: var(--bg-body);
+        color: var(--text-primary);
+        margin: 0;
+        padding: 15px;
+        min-height: 100vh;
+        overflow-y: auto;
+      }
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 15px;
+        border-bottom: 1px solid var(--border);
+        gap: 10px;
+      }
+      .header-actions {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        justify-content: flex-end;
+      }
+      .brand {
+        font-size: 1.5rem;
+        font-weight: 800;
+        font-style: italic;
+      }
+      .brand span {
+        color: var(--primary);
+        font-style: normal;
+      }
+      .icon-btn-header {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        color: var(--text-secondary);
+        cursor: pointer;
+        font-size: 1.2rem;
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+      }
+      .icon-btn-header:hover {
+        border-color: var(--primary);
+        color: var(--primary);
+        background: var(--bg-input);
+      }
+
+      .card {
+        background: var(--bg-card);
+        border-radius: 8px;
+        padding: 15px;
+        border: 1px solid var(--border);
+      }
+      .card-title {
+        margin: 0 0 12px 0;
+        font-size: 1rem;
+        color: var(--text-primary);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .card-title i {
+        color: var(--primary);
+        font-size: 1.2rem;
+      }
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+      }
+      .form-control label {
+        display: block;
+        font-size: 0.8rem;
+        color: var(--text-secondary);
+        margin-bottom: 5px;
+      }
+      .form-control input,
+      .form-control textarea,
+      .form-control select {
+        width: 100%;
+        padding: 12px;
+        background: var(--bg-input);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        color: var(--text-primary);
+        outline: none;
+        text-transform: uppercase;
+        font-family: inherit;
+      }
+      .form-control textarea {
+        min-height: 110px;
+        resize: vertical;
+        text-transform: none;
+      }
+      .form-control input[readonly] {
+        opacity: 0.9;
+      }
+
+      .input-icon-group {
+        position: relative;
+      }
+      .input-icon-group i {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-secondary);
+        font-size: 1.2rem;
+        pointer-events: none;
+      }
+      .input-loading {
+        border-color: var(--info) !important;
+      }
+
+      .btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 10px 20px;
+        border-radius: 6px;
+        border: none;
+        font-weight: 700;
+        cursor: pointer;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+      }
+      .btn-primary {
+        background: var(--primary);
+        color: white;
+      }
+      .btn-primary:hover {
+        background: var(--primary-hover);
+      }
+      .btn-secondary {
+        background: transparent;
+        border: 1px solid var(--border);
+        color: var(--text-primary);
+      }
+      .btn-secondary:hover {
+        border-color: var(--primary);
+      }
+      .divider {
+        height: 1px;
+        background: var(--border);
+        margin: 12px 0;
+      }
+      .options-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .opt {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 6px;
+        user-select: none;
+        color: var(--text-primary);
+        cursor: pointer;
+      }
+      html[data-theme="light"] .opt {
+        background: rgba(0, 0, 0, 0.03);
+      }
+      .opt input {
+        width: 18px;
+        height: 18px;
+        accent-color: var(--primary);
+      }
+      .actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+      .badge {
+        display: inline-block;
+        padding: 4px 8px;
+        border-radius: 6px;
+        font-size: 0.75rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        border: 1px solid var(--border);
+        color: var(--text-secondary);
+        background: rgba(255, 255, 255, 0.04);
+      }
+      html[data-theme="light"] .badge {
+        background: rgba(0, 0, 0, 0.03);
+      }
+      .badge.draft {
+        border-color: var(--warning);
+        color: var(--warning);
+      }
+      .badge.final {
+        border-color: var(--success);
+        color: var(--success);
+      }
+
+      /* --- GAUGE --- */
+      .gauge-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: var(--bg-input);
+        border: 1px solid var(--border);
+        padding: 15px;
+        border-radius: 8px;
+        grid-column: 1 / -1;
+      }
+      .gauge-body {
+        width: 220px;
+        height: 110px;
+        position: relative;
+        overflow: hidden;
+        background: radial-gradient(
+          circle at 50% 100%,
+          transparent 45%,
+          var(--bg-card) 46%
+        );
+        border-radius: 220px 220px 0 0;
+        border: 2px solid var(--border);
+        border-bottom: none;
+        margin-bottom: 5px;
+      }
+      .gauge-ticks {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+      }
+      .tick {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 2px;
+        height: 8px;
+        background: var(--text-secondary);
+        transform-origin: bottom center;
+        opacity: 0.6;
+      }
+      .tick.major {
+        height: 14px;
+        width: 3px;
+        opacity: 1;
+      }
+      .tick.t-0 {
+        transform: rotate(-90deg) translate(0, -94px);
+        background: var(--danger);
+      }
+      .tick.t-1 {
+        transform: rotate(-67.5deg) translate(0, -94px);
+      }
+      .tick.t-2 {
+        transform: rotate(-45deg) translate(0, -94px);
+      }
+      .tick.t-3 {
+        transform: rotate(-22.5deg) translate(0, -94px);
+      }
+      .tick.t-4 {
+        transform: rotate(0deg) translate(0, -94px);
+        height: 14px;
+      }
+      .tick.t-5 {
+        transform: rotate(22.5deg) translate(0, -94px);
+      }
+      .tick.t-6 {
+        transform: rotate(45deg) translate(0, -94px);
+      }
+      .tick.t-7 {
+        transform: rotate(67.5deg) translate(0, -94px);
+      }
+      .tick.t-8 {
+        transform: rotate(90deg) translate(0, -94px);
+        background: var(--success);
+      }
+
+      .gauge-needle {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 4px;
+        height: 95px;
+        background: var(--primary);
+        transform-origin: bottom center;
+        transform: rotate(-90deg);
+        transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+        border-radius: 4px;
+        z-index: 2;
+      }
+      .gauge-center {
+        position: absolute;
+        bottom: -12px;
+        left: 50%;
+        width: 24px;
+        height: 24px;
+        background: var(--text-primary);
+        border-radius: 50%;
+        transform: translateX(-50%);
+        z-index: 3;
+      }
+      .gauge-labels {
+        width: 240px;
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.8rem;
+        font-weight: bold;
+        color: var(--text-secondary);
+        margin-top: -5px;
+        padding: 0 10px;
+      }
+      .fuel-control {
+        width: 100%;
+        max-width: 300px;
+        margin-top: 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+      }
+      .fuel-text {
+        font-size: 1rem;
+        font-weight: bold;
+        color: var(--primary);
+        text-transform: uppercase;
+        text-align: center;
+        min-height: 1.5rem;
+      }
+
+      input[type="range"] {
+        -webkit-appearance: none;
+        width: 100%;
+        background: transparent;
+        cursor: pointer;
+      }
+      input[type="range"]:focus {
+        outline: none;
+      }
+      input[type="range"]::-webkit-slider-runnable-track {
+        width: 100%;
+        height: 8px;
+        cursor: pointer;
+        background: var(--border);
+        border-radius: 4px;
+      }
+      input[type="range"]::-webkit-slider-thumb {
+        height: 24px;
+        width: 24px;
+        border-radius: 50%;
+        background: var(--primary);
+        cursor: pointer;
+        -webkit-appearance: none;
+        margin-top: -8px;
+        border: 2px solid var(--bg-card);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      }
+      input[type="range"]::-moz-range-track {
+        width: 100%;
+        height: 8px;
+        cursor: pointer;
+        background: var(--border);
+        border-radius: 4px;
+      }
+      input[type="range"]::-moz-range-thumb {
+        height: 24px;
+        width: 24px;
+        border: 2px solid var(--bg-card);
+        border-radius: 50%;
+        background: var(--primary);
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      }
+
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.75);
+        z-index: 2000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+      }
+      .hidden {
+        display: none !important;
+      }
+      .modal-form {
+        background: var(--bg-card);
+        padding: 20px;
+        border-radius: 8px;
+        width: 950px;
+        max-width: 100%;
+        max-height: 90vh;
+        overflow-y: auto;
+        border: 1px solid var(--border);
+      }
+      .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+        gap: 10px;
+      }
+      .btn-close-modal {
+        background: transparent;
+        border: none;
+        color: var(--text-secondary);
+        cursor: pointer;
+        font-size: 1.5rem;
+        padding: 5px;
+      }
+      .btn-close-modal:hover {
+        color: var(--text-primary);
+      }
+      .search-wrapper {
+        background: var(--bg-input);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+      .search-wrapper input {
+        background: transparent;
+        border: none;
+        color: var(--text-primary);
+        width: 100%;
+        outline: none;
+        text-transform: uppercase;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid var(--border);
+        font-size: 0.9rem;
+      }
+      th {
+        color: var(--text-secondary);
+        font-size: 0.75rem;
+      }
+      .row-actions {
+        display: flex;
+        gap: 8px;
+        justify-content: flex-end;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .icon-btn {
+        background: transparent;
+        border: 1px solid transparent;
+        color: var(--text-secondary);
+        cursor: pointer;
+        font-size: 1.2rem;
+        padding: 6px;
+        border-radius: 6px;
+        transition: 0.2s;
+      }
+      .icon-btn:hover {
+        border-color: var(--border);
+        color: var(--text-primary);
+        background: rgba(255, 255, 255, 0.06);
+      }
+      html[data-theme="light"] .icon-btn:hover {
+        background: rgba(0, 0, 0, 0.04);
+      }
+      .icon-btn.delete:hover {
+        border-color: var(--danger);
+        color: var(--danger);
+        background: rgba(247, 90, 104, 0.12);
+      }
+
+      @media (max-width: 768px) {
+        body {
+          padding: 10px;
+        }
+        .brand {
+          font-size: 1.2rem;
+        }
+        .form-grid {
+          grid-template-columns: 1fr;
+          gap: 10px;
+        }
+        .actions {
+          justify-content: stretch;
+        }
+        .actions .btn {
+          width: 100%;
+        }
+        .header {
+          flex-direction: row;
+          align-items: center;
+        }
+        .header-actions {
+          width: auto;
+        }
+        .modal-form {
+          padding: 15px;
+        }
+        th:nth-child(4),
+        td:nth-child(4) {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <header class="header">
+        <div class="brand">AUTOCAR <span>BS</span></div>
+        <div class="header-actions">
+          <button
+            class="icon-btn-header"
+            type="button"
+            onclick="alternarTema()"
+            id="btn-tema"
+            title="Mudar Tema"
+          >
+            <i class="ph ph-sun"></i>
+          </button>
+          <button
+            class="icon-btn-header"
+            type="button"
+            onclick="abrirHistorico()"
+            title="Histórico"
+          >
+            <i class="ph ph-clock-counter-clockwise"></i>
+          </button>
+          <button
+            class="icon-btn-header"
+            type="button"
+            onclick="limparFormulario()"
+            title="Limpar Tudo"
+          >
+            <i class="ph ph-broom"></i>
+          </button>
+        </div>
+      </header>
+
+      <section class="card">
+        <h2 class="card-title"><i class="ph ph-note-pencil"></i>Modo</h2>
+        <div
+          class="options-row"
+          style="justify-content: space-between; width: 100%"
+        >
+          <label class="opt">
+            <input type="checkbox" id="check_rascunho" />
+            Salvar como RASCUNHO
+          </label>
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              gap: 10px;
+              flex-wrap: wrap;
+            "
+          >
+            <span id="status-edicao" class="badge" title="Status do registro"
+              >NOVO</span
+            >
+            <button
+              class="btn btn-secondary"
+              type="button"
+              onclick="cancelarEdicao()"
+              id="btn-cancelar-edicao"
+              style="display: none"
+            >
+              <i class="ph ph-x-circle"></i> Cancelar edição
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2 class="card-title"><i class="ph ph-clock"></i>Entrada</h2>
+        <div class="form-grid">
+          <div class="form-control">
+            <label>MECÂNICO RESPONSAVEL</label>
+            <input
+              id="mecanico_responsavel"
+              type="text"
+              placeholder="NOME DO MECÂNICO"
+            />
+          </div>
+          <div class="form-control">
+            <label>DATA ENTRADA</label>
+            <input id="data_entrada" type="text" readonly />
+          </div>
+          <div class="form-control">
+            <label>HORARIO ENTRADA</label>
+            <input id="horario_entrada" type="text" readonly />
+          </div>
+          <div class="form-control">
+            <label>CHEGOU DE GUINCHO?</label>
+            <div class="options-row">
+              <label class="opt"
+                ><input type="radio" name="guincho" value="SIM" />( ) SIM</label
+              >
+              <label class="opt"
+                ><input type="radio" name="guincho" value="NÃO" checked />( )
+                NÃO</label
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2 class="card-title">
+          <i class="ph ph-user"></i>Dados do cliente (Cadastro)
+        </h2>
+        <div class="form-grid">
+          <div class="form-control">
+            <label>NOME COMPLETO</label>
+            <input
+              id="cliente_nome_completo"
+              type="text"
+              list="lista-clientes-sugestao"
+              placeholder="DIGITE O NOME..."
+              onchange="verificarClienteCadastrado(this)"
+              autocomplete="off"
+            />
+            <datalist id="lista-clientes-sugestao"></datalist>
+          </div>
+          <div class="form-control">
+            <label>CPF N°</label>
+            <input
+              id="cliente_cpf"
+              type="text"
+              placeholder="000.000.000-00"
+              maxlength="14"
+              oninput="mascaraCPF(this)"
+            />
+          </div>
+          <div class="form-control">
+            <label>TELEFONE N°</label>
+            <input
+              id="cliente_telefone"
+              type="text"
+              placeholder="(00) 00000-0000"
+              maxlength="15"
+              oninput="mascaraTelefone(this)"
+            />
+          </div>
+
+          <div class="form-control">
+            <label>CEP (Busca Automática)</label>
+            <div class="input-icon-group">
+              <input
+                id="cliente_cep"
+                type="text"
+                placeholder="00000-000"
+                maxlength="9"
+                oninput="mascaraCEP(this)"
+                onblur="buscarEnderecoPorCep()"
+              />
+              <i class="ph ph-magnifying-glass" id="icon-cep-loading"></i>
+            </div>
+          </div>
+          <div class="form-control">
+            <label>UF</label>
+            <select id="cliente_uf">
+              <option value="">Selecione...</option>
+              <option value="AC">AC</option>
+              <option value="AL">AL</option>
+              <option value="AP">AP</option>
+              <option value="AM">AM</option>
+              <option value="BA">BA</option>
+              <option value="CE">CE</option>
+              <option value="DF">DF</option>
+              <option value="ES">ES</option>
+              <option value="GO">GO</option>
+              <option value="MA">MA</option>
+              <option value="MT">MT</option>
+              <option value="MS">MS</option>
+              <option value="MG">MG</option>
+              <option value="PA">PA</option>
+              <option value="PB">PB</option>
+              <option value="PR">PR</option>
+              <option value="PE">PE</option>
+              <option value="PI">PI</option>
+              <option value="RJ">RJ</option>
+              <option value="RN">RN</option>
+              <option value="RS">RS</option>
+              <option value="RO">RO</option>
+              <option value="RR">RR</option>
+              <option value="SC">SC</option>
+              <option value="SP">SP</option>
+              <option value="SE">SE</option>
+              <option value="TO">TO</option>
+            </select>
+          </div>
+
+          <div class="form-control">
+            <label>CIDADE</label>
+            <input id="cliente_cidade" type="text" placeholder="CIDADE" />
+          </div>
+          <div class="form-control">
+            <label>BAIRRO</label>
+            <input id="cliente_bairro" type="text" placeholder="BAIRRO" />
+          </div>
+          <div class="form-control">
+            <label>ENDEREÇO (Rua/Av)</label>
+            <div class="input-icon-group">
+              <input
+                id="cliente_endereco"
+                type="text"
+                placeholder="RUA / AVENIDA"
+                onblur="buscarCepPorEndereco()"
+              />
+              <i
+                class="ph ph-arrows-clockwise"
+                id="icon-end-loading"
+                style="display: none"
+              ></i>
+            </div>
+          </div>
+          <div class="form-control">
+            <label>N°</label>
+            <input id="cliente_numero" type="text" placeholder="NÚMERO" />
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2 class="card-title"><i class="ph ph-car"></i>Dados do veículo</h2>
+        <div class="form-grid">
+          <div class="form-control">
+            <label>PLACA (Busca Automática)</label>
+            <div class="input-icon-group">
+              <input
+                id="veiculo_placa"
+                type="text"
+                placeholder="ABC-1234"
+                onblur="consultarPlaca(this)"
+                oninput="mascaraPlaca(this)"
+                maxlength="8"
+              />
+              <i class="ph ph-magnifying-glass" id="icon-placa-loading"></i>
+            </div>
+          </div>
+
+          <div class="form-control">
+            <label>N° CHASSI</label>
+            <input
+              id="veiculo_chassi"
+              type="text"
+              placeholder="CHASSI"
+              oninput="this.value = this.value.toUpperCase()"
+            />
+          </div>
+          <div class="form-control">
+            <label>MARCA</label>
+            <input id="veiculo_marca" type="text" placeholder="EX: VW" />
+          </div>
+          <div class="form-control">
+            <label>VERSÃO</label>
+            <input id="veiculo_versao" type="text" placeholder="EX: GOL 1.6" />
+          </div>
+          <div class="form-control">
+            <label>KM</label>
+            <input
+              id="veiculo_km"
+              type="text"
+              placeholder="EX: 123456"
+              oninput="mascaraNumeros(this)"
+            />
+          </div>
+          <div class="form-control">
+            <label>ANO/MODELO</label>
+            <input
+              id="veiculo_ano_modelo"
+              type="text"
+              placeholder="EX: 2012/2013"
+              maxlength="9"
+              oninput="mascaraAnoModelo(this)"
+            />
+          </div>
+          <div class="form-control">
+            <label>COR</label>
+            <input id="veiculo_cor" type="text" placeholder="EX: PRATA" />
+          </div>
+          <div class="form-control">
+            <label>COMBUSTÍVEL</label>
+            <div class="options-row">
+              <label class="opt"
+                ><input type="radio" name="combustivel" value="ALCOOL" />( )
+                ALCOOL</label
+              >
+              <label class="opt"
+                ><input type="radio" name="combustivel" value="GASOLINA" />( )
+                GASOLINA</label
+              >
+              <label class="opt"
+                ><input type="radio" name="combustivel" value="FLEX" />( )
+                FLEX</label
+              >
+              <label class="opt"
+                ><input type="radio" name="combustivel" value="DIESEL" />( )
+                DIESEL</label
+              >
+            </div>
+          </div>
+          <div class="form-control">
+            <label>CÂMBIO</label>
+            <div class="options-row">
+              <label class="opt"
+                ><input type="radio" name="cambio" value="MANUAL" />( )
+                MANUAL</label
+              >
+              <label class="opt"
+                ><input type="radio" name="cambio" value="AUTOMATICO" />( )
+                AUTOMATICO</label
+              >
+            </div>
+          </div>
+          <div class="form-control">
+            <label>DOCUMENTO ESTÁ NO VEICULO?</label>
+            <div class="options-row">
+              <label class="opt"
+                ><input type="radio" name="documento_no_veiculo" value="SIM" />(
+                ) SIM</label
+              >
+              <label class="opt"
+                ><input type="radio" name="documento_no_veiculo" value="NÃO" />(
+                ) NÃO</label
+              >
+            </div>
+          </div>
+          <div class="form-control">
+            <label>PORTAS</label>
+            <div class="options-row">
+              <label class="opt"
+                ><input type="radio" name="portas" value="2PORTAS" />( )
+                2PORTAS</label
+              >
+              <label class="opt"
+                ><input type="radio" name="portas" value="4PORTAS" />( )
+                4PORTAS</label
+              >
+            </div>
+          </div>
+
+          <div class="gauge-wrapper">
+            <label
+              style="
+                margin-bottom: 10px;
+                display: block;
+                width: 100%;
+                text-align: center;
+                font-weight: bold;
+              "
+              >NÍVEL DE COMBUSTÍVEL</label
+            >
+            <div class="gauge-body">
+              <div class="gauge-ticks">
+                <div class="tick major t-0"></div>
+                <div class="tick t-1"></div>
+                <div class="tick major t-2"></div>
+                <div class="tick t-3"></div>
+                <div class="tick major t-4"></div>
+                <div class="tick t-5"></div>
+                <div class="tick major t-6"></div>
+                <div class="tick t-7"></div>
+                <div class="tick major t-8"></div>
+              </div>
+              <div class="gauge-needle" id="gauge-pointer"></div>
+              <div class="gauge-center"></div>
+            </div>
+            <div class="gauge-labels">
+              <span>E</span>
+              <span>1/2</span>
+              <span>F</span>
+            </div>
+
+            <div class="fuel-control">
+              <input
+                type="range"
+                id="fuel-slider"
+                min="0"
+                max="8"
+                step="1"
+                value="0"
+                oninput="updateFuelFromSlider(this.value)"
+              />
+              <div id="fuel-text-display" class="fuel-text">VAZIO</div>
+            </div>
+            <input type="hidden" id="nivel_combustivel" value="VAZIO" />
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2 class="card-title">
+          <i class="ph ph-shield-check"></i>Autorizações e Avisos
+        </h2>
+        <div
+          style="
+            background: var(--bg-input);
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            margin-bottom: 10px;
+          "
+        >
+          <div
+            style="
+              margin-bottom: 5px;
+              font-size: 0.85rem;
+              color: var(--text-secondary);
+            "
+          >
+            A assinatura do cliente autoriza o uso de imagem (restrição placa)?
+          </div>
+          <div class="options-row">
+            <label class="opt"
+              ><input
+                type="radio"
+                name="auth_imagem"
+                value="SIM"
+                checked
+              />SIM</label
+            >
+            <label class="opt"
+              ><input type="radio" name="auth_imagem" value="NÃO" />NÃO</label
+            >
+          </div>
+        </div>
+        <div
+          style="
+            background: rgba(245, 158, 11, 0.1);
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid var(--warning);
+            display: flex;
+            align-items: start;
+            gap: 10px;
+          "
+        >
+          <i
+            class="ph ph-warning"
+            style="color: var(--warning); font-size: 1.5rem"
+          ></i>
+          <div>
+            <strong
+              style="color: var(--warning); display: block; margin-bottom: 5px"
+              >ATENÇÃO - DIAGNÓSTICO TÉCNICO</strong
+            >
+            <p
+              style="margin: 0; font-size: 0.85rem; color: var(--text-primary)"
+            >
+              Caso seja necessário realizar diagnóstico técnico, haverá um custo
+              inicial a partir de <strong>R$ 300,00</strong>.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2 class="card-title">
+          <i class="ph ph-clipboard-text"></i>Serviço e histórico (Opcional)
+        </h2>
+        <div class="form-grid">
+          <div class="form-control">
+            <label>ULTIMA REVISÃO KM (Preenchimento Automático)</label>
+            <input
+              id="ultima_revisao_km"
+              type="text"
+              placeholder="KM"
+              oninput="mascaraNumeros(this)"
+            />
+          </div>
+          <div class="form-control">
+            <label>DATA</label>
+            <input
+              id="ultima_revisao_data"
+              type="text"
+              placeholder="DD/MM/AAAA"
+            />
+          </div>
+          <div class="form-control" style="grid-column: 1 / -1">
+            <label
+              >SERVIÇO SOLICITADO PELO CLIENTE (escreva exatamente como o
+              cliente relatou)</label
+            >
+            <textarea
+              id="servico_solicitado"
+              placeholder="Digite aqui..."
+            ></textarea>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="actions">
+          <button
+            class="btn btn-primary"
+            type="button"
+            onclick="salvarOuAtualizar()"
+          >
+            <i class="ph ph-floppy-disk"></i>
+            <span id="txt-btn-salvar">Salvar entrada</span>
+          </button>
+        </div>
+        <p
+          style="
+            margin: 10px 0 0 0;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+          "
+        >
+          RASCUNHO: salva mesmo incompleto. FINALIZADO: exige campos
+          obrigatórios (exceto Histórico).
+        </p>
+      </section>
+    </div>
+
+    <div id="modal-historico" class="modal-overlay hidden">
+      <div class="modal-form">
+        <div class="modal-header">
+          <h3
+            style="
+              margin: 0;
+              color: var(--info);
+              display: flex;
+              gap: 10px;
+              align-items: center;
+            "
+          >
+            <i class="ph ph-users"></i> Clientes (Histórico)
+          </h3>
+          <button
+            class="btn-close-modal"
+            onclick="fecharModal('modal-historico')"
+            title="Fechar"
+          >
+            <i class="ph ph-x"></i>
+          </button>
+        </div>
+        <div class="search-wrapper">
+          <i class="ph ph-magnifying-glass"></i>
+          <input
+            id="busca-historico"
+            type="text"
+            placeholder="BUSCAR CLIENTE..."
+            onkeyup="
+              paginaClientes = 1;
+              renderizarClientes();
+            "
+          />
+        </div>
+        <div
+          style="
+            overflow: auto;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+          "
+        >
+          <table>
+            <thead>
+              <tr>
+                <th>Cliente</th>
+                <th>Total</th>
+                <th>Último</th>
+                <th style="text-align: right">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="lista-clientes"></tbody>
+          </table>
+        </div>
+        <div class="divider"></div>
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+          "
+        >
+          <button
+            class="btn btn-secondary"
+            type="button"
+            id="btn-cli-prev"
+            onclick="mudarPaginaClientes(-1)"
+          >
+            Anterior
+          </button>
+          <span
+            id="page-info-clientes"
+            style="color: var(--text-secondary); font-size: 0.9rem"
+            >Página 1</span
+          >
+          <button
+            class="btn btn-secondary"
+            type="button"
+            id="btn-cli-next"
+            onclick="mudarPaginaClientes(1)"
+          >
+            Próxima
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="modal-cliente" class="modal-overlay hidden">
+      <div class="modal-form">
+        <div class="modal-header">
+          <h3
+            id="titulo-cliente"
+            style="
+              margin: 0;
+              color: var(--warning);
+              display: flex;
+              gap: 10px;
+              align-items: center;
+            "
+          >
+            <i class="ph ph-user"></i> Cliente
+          </h3>
+          <button
+            class="btn-close-modal"
+            onclick="fecharModal('modal-cliente')"
+            title="Fechar"
+          >
+            <i class="ph ph-x"></i>
+          </button>
+        </div>
+        <div
+          style="
+            overflow: auto;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+          "
+        >
+          <table>
+            <thead>
+              <tr>
+                <th>Status</th>
+                <th>Placa</th>
+                <th>Veículo</th>
+                <th>Data/Hora</th>
+                <th style="text-align: right">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="lista-checklists-cliente"></tbody>
+          </table>
+        </div>
+        <div class="divider"></div>
+        <button
+          class="btn btn-secondary"
+          type="button"
+          id="btn-cli-mais"
+          onclick="carregarMaisChecklistsCliente()"
+        >
+          Carregar mais 20
+        </button>
+      </div>
+    </div>
+
+    <script>
+      // --- API / VARIAVEIS ---
+      const API_LOGIN_URL = "https://placas.app.br/api/v1/authenticate";
+      const API_URL_CONSULTA_BASE =
+        "https://placas.app.br/api/v1/placas/numero";
+      const API_USER = "dr.renatotavares@gmail.com";
+      const API_PASS = "123456";
+      let apiTokenAtual =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.zEnnU_MTjz5XyKM77g_rGqXLx0Lqh5l_qhZCshgus4A";
+
+      const LS_KEY_CHECKLISTS = "autocar_checklists_entrada_v25";
+      const LS_KEY_TOKEN = "autocar_api_token";
+      let editandoId = null;
+      let paginaClientes = 1;
+      const clientesPorPagina = 10;
+      let clienteAtualNome = "";
+      let limiteChecklistsCliente = 20;
+
+      const FUEL_MAP = [
+        { label: "VAZIO", deg: -90 },
+        { label: "RESERVA / 1/8", deg: -67.5 },
+        { label: "1/4", deg: -45 },
+        { label: "ENTRE 1/4 E 1/2", deg: -22.5 },
+        { label: "1/2", deg: 0 },
+        { label: "ENTRE 1/2 E 3/4", deg: 22.5 },
+        { label: "3/4", deg: 45 },
+        { label: "ENTRE 3/4 E CHEIO", deg: 67.5 },
+        { label: "CHEIO", deg: 90 },
+      ];
+
+      function updateFuelFromSlider(val) {
+        const idx = parseInt(val);
+        const data = FUEL_MAP[idx];
+        if (!data) return;
+        document.getElementById("gauge-pointer").style.transform =
+          `rotate(${data.deg}deg)`;
+        document.getElementById("fuel-text-display").innerText = data.label;
+        document.getElementById("nivel_combustivel").value = data.label;
+      }
+
+      function setFuelLevelByText(text) {
+        let idx = FUEL_MAP.findIndex((f) => f.label === text);
+        if (idx === -1) idx = 0;
+        document.getElementById("fuel-slider").value = idx;
+        updateFuelFromSlider(idx);
+      }
+
+      // --- FUNCOES PRINCIPAIS ---
+      async function renovarToken() {
+        console.log("Renovando token...");
+        try {
+          const resp = await fetch(API_LOGIN_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email: API_USER, password: API_PASS }),
+          });
+          if (!resp.ok) return false;
+          const data = await resp.json();
+          const novoToken = data.token || (data.data && data.data.token);
+          if (novoToken) {
+            apiTokenAtual = novoToken;
+            localStorage.setItem(LS_KEY_TOKEN, novoToken);
+            return true;
+          }
+          return false;
+        } catch (e) {
+          return false;
+        }
+      }
+
+      async function consultarPlaca(input) {
+        let placa = input.value.replace(/[^a-zA-Z0-9]/g, "").toUpperCase();
+        const icon = document.getElementById("icon-placa-loading");
+        if (placa.length < 7) return;
+
+        input.classList.add("input-loading");
+        icon.classList.replace("ph-magnifying-glass", "ph-spinner");
+        icon.classList.add("ph-spin");
+
+        const tokenSalvo = localStorage.getItem(LS_KEY_TOKEN);
+        if (tokenSalvo && tokenSalvo.length > 50) apiTokenAtual = tokenSalvo;
+
+        try {
+          let response = await fetch(API_URL_CONSULTA_BASE, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + apiTokenAtual,
+            },
+            body: JSON.stringify({ placa: placa }),
+          });
+
+          if (response.status === 401) {
+            const renovou = await renovarToken();
+            if (renovou) {
+              response = await fetch(API_URL_CONSULTA_BASE, {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: "Bearer " + apiTokenAtual,
+                },
+                body: JSON.stringify({ placa: placa }),
+              });
+            } else {
+              alert("Falha na autenticação da API.");
+              return;
+            }
+          }
+          if (!response.ok) throw new Error(`Erro HTTP: ${response.status}`);
+          const data = await response.json();
+
+          if (data && !data.error && !data.erro) {
+            const marca = (data.marca || "").toUpperCase();
+            const modelo = (data.modelo || "").toUpperCase();
+            const ano = data.ano || "";
+            const anoModelo = data.anoModelo || "";
+            const cor = (data.cor || "").toUpperCase();
+            const chassi = (data.chassi || "").toUpperCase();
+            let marcaFinal = marca;
+            let modeloFinal = modelo;
+            if (marca.includes("/")) {
+              const parts = marca.split("/");
+              marcaFinal = parts[0];
+              if (!modeloFinal) modeloFinal = parts[1];
+            }
+            document.getElementById("veiculo_marca").value = marcaFinal;
+            document.getElementById("veiculo_versao").value = modeloFinal;
+            document.getElementById("veiculo_ano_modelo").value =
+              `${ano}/${anoModelo}`;
+            document.getElementById("veiculo_cor").value = cor;
+            document.getElementById("veiculo_chassi").value = chassi;
+          } else {
+            alert("Placa não encontrada.");
+          }
+        } catch (error) {
+          console.error(error);
+          alert("Erro ao consultar API (Verifique extensão CORS ou internet).");
+        } finally {
+          input.classList.remove("input-loading");
+          icon.classList.remove("ph-spin");
+          icon.classList.replace("ph-spinner", "ph-magnifying-glass");
+        }
+      }
+
+      // --- HELPERS ---
+      function mascaraCPF(i) {
+        let v = i.value.replace(/\D/g, "");
+        v = v.replace(/(\d{3})(\d)/, "$1.$2");
+        v = v.replace(/(\d{3})(\d)/, "$1.$2");
+        v = v.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+        i.value = v;
+      }
+      function mascaraTelefone(i) {
+        let v = i.value.replace(/\D/g, "");
+        v = v.replace(/^(\d{2})(\d)/g, "($1) $2");
+        v = v.replace(/(\d)(\d{4})$/, "$1-$2");
+        i.value = v;
+      }
+      function mascaraCEP(i) {
+        let v = i.value.replace(/\D/g, "");
+        v = v.replace(/^(\d{5})(\d)/, "$1-$2");
+        i.value = v;
+      }
+      function mascaraPlaca(i) {
+        let v = i.value.toUpperCase().replace(/[^A-Z0-9]/g, "");
+        if (v.length > 3) {
+          v = v.substring(0, 3) + "-" + v.substring(3);
+        }
+        i.value = v;
+      }
+      function mascaraAnoModelo(i) {
+        let v = i.value.replace(/\D/g, "");
+        if (v.length > 4) {
+          v = v.substring(0, 4) + "/" + v.substring(4);
+        }
+        i.value = v;
+      }
+      function mascaraNumeros(i) {
+        let v = i.value.replace(/\D/g, "");
+        v = v.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        i.value = v;
+      }
+
+      async function buscarEnderecoPorCep() {
+        const cepInput = document.getElementById("cliente_cep");
+        const icon = document.getElementById("icon-cep-loading");
+        let cep = cepInput.value.replace(/\D/g, "");
+        if (cep.length !== 8) return;
+        cepInput.classList.add("input-loading");
+        icon.classList.replace("ph-magnifying-glass", "ph-spinner");
+        icon.classList.add("ph-spin");
+        try {
+          const resp = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+          const data = await resp.json();
+          if (!data.erro) {
+            document.getElementById("cliente_endereco").value =
+              data.logradouro.toUpperCase();
+            document.getElementById("cliente_bairro").value =
+              data.bairro.toUpperCase();
+            document.getElementById("cliente_cidade").value =
+              data.localidade.toUpperCase();
+            document.getElementById("cliente_uf").value = data.uf;
+            document.getElementById("cliente_numero").focus();
+          } else {
+            alert("CEP não encontrado.");
+          }
+        } catch (e) {
+          alert("Erro ao buscar CEP.");
+        } finally {
+          cepInput.classList.remove("input-loading");
+          icon.classList.remove("ph-spin");
+          icon.classList.replace("ph-spinner", "ph-magnifying-glass");
+        }
+      }
+
+      async function buscarCepPorEndereco() {
+        const uf = document.getElementById("cliente_uf").value;
+        const cidade = document.getElementById("cliente_cidade").value;
+        const logradouro = document.getElementById("cliente_endereco").value;
+        const cepInput = document.getElementById("cliente_cep");
+        const iconEnd = document.getElementById("icon-end-loading");
+        if (cepInput.value.replace(/\D/g, "").length === 8) return;
+        if (!uf || cidade.length < 3 || logradouro.length < 3) return;
+        iconEnd.style.display = "block";
+        iconEnd.classList.add("ph-spin");
+        try {
+          const url = `https://viacep.com.br/ws/${uf}/${encodeURIComponent(cidade)}/${encodeURIComponent(logradouro)}/json/`;
+          const resp = await fetch(url);
+          const data = await resp.json();
+          if (Array.isArray(data) && data.length > 0) {
+            cepInput.value = data[0].cep;
+            if (!document.getElementById("cliente_bairro").value) {
+              document.getElementById("cliente_bairro").value =
+                data[0].bairro.toUpperCase();
+            }
+          }
+        } catch (e) {
+        } finally {
+          iconEnd.style.display = "none";
+          iconEnd.classList.remove("ph-spin");
+        }
+      }
+
+      function atualizarDatalistClientes() {
+        const lista = carregarListaLocal();
+        const nomesUnicos = new Set();
+        lista.forEach((item) => {
+          if (item.cliente && item.cliente.nome_completo)
+            nomesUnicos.add(item.cliente.nome_completo);
+        });
+        const datalist = document.getElementById("lista-clientes-sugestao");
+        datalist.innerHTML = "";
+        nomesUnicos.forEach((nome) => {
+          const option = document.createElement("option");
+          option.value = nome;
+          datalist.appendChild(option);
+        });
+      }
+
+      function buscarClienteNoBancoDeDados(nome) {
+        return new Promise((resolve) => {
+          const lista = carregarListaLocal();
+          const checklistsCliente = lista.filter(
+            (x) =>
+              normalizarNomeCliente(x.cliente?.nome_completo) ===
+              normalizarNomeCliente(nome),
+          );
+          if (checklistsCliente.length === 0) {
+            resolve(null);
+            return;
+          }
+          const ultimoRegistro = checklistsCliente.reduce((a, b) =>
+            a.created_at > b.created_at ? a : b,
+          );
+          resolve(ultimoRegistro);
+        });
+      }
+
+      async function verificarClienteCadastrado(input) {
+        const nome = input.value;
+        if (nome.length < 3) return;
+        if (editandoId) {
+          if (
+            !confirm(
+              "Mudar o cliente vai preencher os dados com o cadastro dele. Continuar?",
+            )
+          )
+            return;
+        }
+        const dadosAntigos = await buscarClienteNoBancoDeDados(nome);
+        if (dadosAntigos) {
+          preencherFormularioComDadosDoCadastro(dadosAntigos);
+          input.style.borderColor = "var(--success)";
+          setTimeout(() => (input.style.borderColor = "var(--border)"), 1000);
+        }
+      }
+
+      // --- AQUI ESTÁ A LÓGICA DE PUXAR HISTÓRICO AUTOMÁTICO ---
+      function preencherFormularioComDadosDoCadastro(item) {
+        document.getElementById("cliente_cpf").value = item.cliente?.cpf || "";
+        document.getElementById("cliente_telefone").value =
+          item.cliente?.telefone || "";
+        document.getElementById("cliente_cep").value = item.cliente?.cep || "";
+        document.getElementById("cliente_uf").value = item.cliente?.uf || "";
+        document.getElementById("cliente_cidade").value =
+          item.cliente?.cidade || "";
+        document.getElementById("cliente_bairro").value =
+          item.cliente?.bairro || "";
+        document.getElementById("cliente_endereco").value =
+          item.cliente?.endereco || "";
+        document.getElementById("cliente_numero").value =
+          item.cliente?.numero || "";
+        document.getElementById("veiculo_chassi").value =
+          item.veiculo?.chassi || "";
+        document.getElementById("veiculo_placa").value =
+          item.veiculo?.placa || "";
+        document.getElementById("veiculo_marca").value =
+          item.veiculo?.marca || "";
+        document.getElementById("veiculo_versao").value =
+          item.veiculo?.versao || "";
+        document.getElementById("veiculo_km").value = item.veiculo?.km || ""; // KM atual daquele momento
+        document.getElementById("veiculo_ano_modelo").value =
+          item.veiculo?.ano_modelo || "";
+        document.getElementById("veiculo_cor").value = item.veiculo?.cor || "";
+        setRadioValue("combustivel", item.veiculo?.combustivel);
+        setRadioValue("cambio", item.veiculo?.cambio);
+        setRadioValue(
+          "documento_no_veiculo",
+          item.veiculo?.documento_no_veiculo,
+        );
+        setRadioValue("portas", item.veiculo?.portas);
+
+        // --- PREENCHIMENTO AUTOMÁTICO DO HISTÓRICO DE REVISÃO ---
+        // O KM da visita anterior vira o "Última Revisão KM" desta visita
+        if (item.veiculo && item.veiculo.km) {
+          document.getElementById("ultima_revisao_km").value = item.veiculo.km;
+        }
+        // A data da visita anterior vira "Última Revisão Data"
+        if (item.data_entrada) {
+          document.getElementById("ultima_revisao_data").value =
+            item.data_entrada;
+        }
+      }
+
+      function alternarTema() {
+        const atual = localStorage.getItem("autocar_theme") || "dark";
+        aplicarTema(atual === "dark" ? "light" : "dark");
+      }
+      function aplicarTema(theme) {
+        if (theme === "light")
+          document.documentElement.setAttribute("data-theme", "light");
+        else document.documentElement.removeAttribute("data-theme");
+        localStorage.setItem("autocar_theme", theme);
+        const icon = document.querySelector("#btn-tema i");
+        if (icon)
+          icon.className = theme === "light" ? "ph ph-moon" : "ph ph-sun";
+      }
+      function carregarTemaSalvo() {
+        aplicarTema(localStorage.getItem("autocar_theme") || "dark");
+      }
+
+      function preencherDataHoraAtual() {
+        const agora = new Date();
+        const dd = String(agora.getDate()).padStart(2, "0");
+        const mm = String(agora.getMonth() + 1).padStart(2, "0");
+        const yyyy = agora.getFullYear();
+        const hh = String(agora.getHours()).padStart(2, "0");
+        const min = String(agora.getMinutes()).padStart(2, "0");
+        document.getElementById("data_entrada").value = `${dd}/${mm}/${yyyy}`;
+        document.getElementById("horario_entrada").value = `${hh}:${min}`;
+      }
+
+      function getRadioValue(name) {
+        const el = document.querySelector(`input[name="${name}"]:checked`);
+        return el ? el.value : "";
+      }
+      function setRadioValue(name, value) {
+        if (!value) return;
+        const el = document.querySelector(
+          `input[name="${name}"][value="${value}"]`,
+        );
+        if (el) el.checked = true;
+      }
+      function normalizarNomeCliente(nome) {
+        return (nome || "").trim().toUpperCase();
+      }
+      function formatarDataHoraISO(iso) {
+        const d = new Date(iso);
+        return `${d.toLocaleDateString("pt-BR")} ${d.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" })}`;
+      }
+
+      function carregarListaLocal() {
+        try {
+          return JSON.parse(localStorage.getItem(LS_KEY_CHECKLISTS)) || [];
+        } catch (e) {
+          return [];
+        }
+      }
+      function salvarListaLocal(lista) {
+        localStorage.setItem(LS_KEY_CHECKLISTS, JSON.stringify(lista));
+        atualizarDatalistClientes();
+      }
+      function buscarChecklistPorId(id) {
+        return carregarListaLocal().find((x) => x.id === id) || null;
+      }
+
+      function atualizarUIEdicao() {
+        const badge = document.getElementById("status-edicao");
+        const btnCancelar = document.getElementById("btn-cancelar-edicao");
+        const txtBtn = document.getElementById("txt-btn-salvar");
+        if (editandoId) {
+          const item = buscarChecklistPorId(editandoId);
+          if (item && item.status === "RASCUNHO") {
+            badge.textContent = "EDITANDO RASCUNHO";
+            badge.className = "badge draft";
+          } else {
+            badge.textContent = "EDITANDO FINALIZADO";
+            badge.className = "badge final";
+          }
+          btnCancelar.style.display = "inline-flex";
+          txtBtn.textContent = "Atualizar checklist";
+        } else {
+          badge.textContent = "NOVO";
+          badge.className = "badge";
+          btnCancelar.style.display = "none";
+          txtBtn.textContent = "Salvar entrada";
+        }
+      }
+      function cancelarEdicao(perguntar = true) {
+        if (perguntar && !confirm("Cancelar edição?")) return;
+        editandoId = null;
+        atualizarUIEdicao();
+        limparFormulario(false);
+      }
+
+      // --- NOVA LÓGICA DE SALVAMENTO COM VALIDAÇÃO ---
+      function salvarOuAtualizar() {
+        const isDraft = document.getElementById("check_rascunho").checked;
+
+        // VALIDAÇÃO SE NÃO FOR RASCUNHO
+        if (!isDraft) {
+          const obrigatorios = [
+            { id: "mecanico_responsavel", nome: "MECÂNICO RESPONSÁVEL" },
+            { id: "cliente_nome_completo", nome: "NOME DO CLIENTE" },
+            { id: "cliente_cpf", nome: "CPF" },
+            { id: "cliente_telefone", nome: "TELEFONE" },
+            { id: "cliente_cep", nome: "CEP" },
+            { id: "cliente_endereco", nome: "ENDEREÇO" },
+            { id: "cliente_numero", nome: "NÚMERO" },
+            { id: "cliente_bairro", nome: "BAIRRO" },
+            { id: "cliente_cidade", nome: "CIDADE" },
+            { id: "veiculo_placa", nome: "PLACA" },
+            { id: "veiculo_marca", nome: "MARCA" },
+            { id: "veiculo_versao", nome: "VERSÃO" },
+            { id: "veiculo_km", nome: "KM ATUAL" },
+            { id: "veiculo_ano_modelo", nome: "ANO/MODELO" },
+            { id: "veiculo_cor", nome: "COR" },
+            // Opcionais: ultima_revisao_km, ultima_revisao_data, servico_solicitado
+          ];
+
+          for (let campo of obrigatorios) {
+            const el = document.getElementById(campo.id);
+            if (!el || !el.value.trim()) {
+              alert(`O campo ${campo.nome} é obrigatório!`);
+              if (el) el.focus();
+              return;
+            }
+          }
+
+          const comb = document.getElementById("nivel_combustivel").value;
+          if (!comb) {
+            alert("Selecione o NÍVEL DE COMBUSTÍVEL");
+            return;
+          }
+
+          if (!getRadioValue("combustivel")) {
+            alert("Selecione o TIPO DE COMBUSTÍVEL");
+            return;
+          }
+          if (!getRadioValue("cambio")) {
+            alert("Selecione o CÂMBIO");
+            return;
+          }
+          if (!getRadioValue("documento_no_veiculo")) {
+            alert("Informe se o DOCUMENTO está no veículo");
+            return;
+          }
+          if (!getRadioValue("portas")) {
+            alert("Informe a quantidade de PORTAS");
+            return;
+          }
+        }
+
+        // PROCESSO DE SALVAR
+        const lista = carregarListaLocal();
+        const novo = coletarDadosDoFormulario({ manterId: !!editandoId });
+
+        if (editandoId) {
+          const idx = lista.findIndex((x) => x.id === editandoId);
+          if (idx === -1) return alert("Erro ao localizar registro.");
+          lista[idx] = novo;
+          salvarListaLocal(lista);
+          alert("Registro atualizado com sucesso.");
+          cancelarEdicao(false);
+        } else {
+          lista.unshift(novo);
+          salvarListaLocal(lista);
+          alert(
+            novo.status === "RASCUNHO"
+              ? "Rascunho salvo."
+              : "Checklist finalizado e salvo.",
+          );
+          limparFormulario(false);
+        }
+      }
+
+      function coletarDadosDoFormulario({ manterId = false } = {}) {
+        const isDraft = document.getElementById("check_rascunho").checked;
+        const base = {
+          id: manterId ? editandoId : "chk_" + Date.now(),
+          created_at: manterId ? null : new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+          status: isDraft ? "RASCUNHO" : "FINALIZADO",
+          mecanico_responsavel: document
+            .getElementById("mecanico_responsavel")
+            .value.toUpperCase(),
+          data_entrada: document.getElementById("data_entrada").value,
+          horario_entrada: document.getElementById("horario_entrada").value,
+          guincho: getRadioValue("guincho"),
+          cliente: {
+            nome_completo: document
+              .getElementById("cliente_nome_completo")
+              .value.toUpperCase(),
+            cpf: document.getElementById("cliente_cpf").value,
+            cep: document.getElementById("cliente_cep").value,
+            uf: document.getElementById("cliente_uf").value,
+            endereco: document
+              .getElementById("cliente_endereco")
+              .value.toUpperCase(),
+            numero: document
+              .getElementById("cliente_numero")
+              .value.toUpperCase(),
+            bairro: document
+              .getElementById("cliente_bairro")
+              .value.toUpperCase(),
+            cidade: document
+              .getElementById("cliente_cidade")
+              .value.toUpperCase(),
+            telefone: document.getElementById("cliente_telefone").value,
+          },
+          veiculo: {
+            chassi: document
+              .getElementById("veiculo_chassi")
+              .value.toUpperCase(),
+            placa: document.getElementById("veiculo_placa").value.toUpperCase(),
+            marca: document.getElementById("veiculo_marca").value.toUpperCase(),
+            versao: document
+              .getElementById("veiculo_versao")
+              .value.toUpperCase(),
+            km: document.getElementById("veiculo_km").value,
+            ano_modelo: document.getElementById("veiculo_ano_modelo").value,
+            cor: document.getElementById("veiculo_cor").value.toUpperCase(),
+            combustivel: getRadioValue("combustivel"),
+            cambio: getRadioValue("cambio"),
+            documento_no_veiculo: getRadioValue("documento_no_veiculo"),
+            portas: getRadioValue("portas"),
+          },
+          autorizacoes: { imagem: getRadioValue("auth_imagem") },
+          historico: {
+            ultima_revisao_km:
+              document.getElementById("ultima_revisao_km").value,
+            ultima_revisao_data: document.getElementById("ultima_revisao_data")
+              .value,
+            servico_solicitado:
+              document.getElementById("servico_solicitado").value,
+            nivel_combustivel:
+              document.getElementById("nivel_combustivel").value,
+          },
+        };
+        if (manterId) {
+          const antigo = buscarChecklistPorId(editandoId);
+          if (antigo && antigo.created_at) base.created_at = antigo.created_at;
+        }
+        return base;
+      }
+
+      function excluirChecklist(id) {
+        if (!confirm("Excluir este checklist do histórico?")) return;
+        const lista = carregarListaLocal().filter((x) => x.id !== id);
+        salvarListaLocal(lista);
+        if (clienteAtualNome) renderizarChecklistsDoCliente(clienteAtualNome);
+        renderizarClientes();
+      }
+
+      function mudarPaginaClientes(delta) {
+        paginaClientes = Math.max(1, paginaClientes + delta);
+        renderizarClientes();
+      }
+
+      function abrirHistorico() {
+        document.getElementById("busca-historico").value = "";
+        paginaClientes = 1;
+        document.getElementById("modal-historico").classList.remove("hidden");
+        renderizarClientes();
+      }
+      function fecharModal(id) {
+        document.getElementById(id).classList.add("hidden");
+      }
+      function agruparPorCliente(lista) {
+        /* mesma logica */
+      }
+
+      function renderizarClientes() {
+        const termo = (document.getElementById("busca-historico").value || "")
+          .trim()
+          .toUpperCase();
+        const tbody = document.getElementById("lista-clientes");
+        tbody.innerHTML = "";
+        const lista = carregarListaLocal();
+        const mapa = new Map();
+        lista.forEach((item) => {
+          if (item.cliente?.nome_completo) {
+            const n = normalizarNomeCliente(item.cliente.nome_completo);
+            if (!mapa.has(n)) mapa.set(n, []);
+            mapa.get(n).push(item);
+          }
+        });
+        const clientes = Array.from(mapa.entries())
+          .map(([nome, items]) => {
+            const ultimo = items.reduce((a, b) =>
+              a.created_at > b.created_at ? a : b,
+            );
+            return { nome, total: items.length, ultimo };
+          })
+          .sort((a, b) =>
+            (b.ultimo.created_at || "").localeCompare(
+              a.ultimo.created_at || "",
+            ),
+          );
+        const filtrados = clientes.filter(
+          (c) => !termo || c.nome.includes(termo),
+        );
+
+        const inicio = (paginaClientes - 1) * clientesPorPagina;
+        const pagina = filtrados.slice(inicio, inicio + clientesPorPagina);
+
+        if (pagina.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding:20px;">Nenhum cliente.</td></tr>`;
+          return;
+        }
+
+        pagina.forEach((c) => {
+          tbody.innerHTML += `<tr><td>${c.nome}</td><td>${c.total}</td><td>${formatarDataHoraISO(c.ultimo.created_at)}</td><td><button class="icon-btn" onclick="abrirCliente('${c.nome}')"><i class="ph ph-list-bullets"></i></button></td></tr>`;
+        });
+        document.getElementById("page-info-clientes").innerText =
+          `Página ${paginaClientes}`;
+      }
+
+      function abrirCliente(nomeCliente) {
+        clienteAtualNome = nomeCliente;
+        limiteChecklistsCliente = 20;
+        document.getElementById("titulo-cliente").innerHTML =
+          `<i class="ph ph-user"></i> ${nomeCliente}`;
+        document.getElementById("modal-cliente").classList.remove("hidden");
+        renderizarChecklistsDoCliente(nomeCliente);
+      }
+
+      function carregarMaisChecklistsCliente() {
+        limiteChecklistsCliente += 20;
+        renderizarChecklistsDoCliente(clienteAtualNome);
+      }
+
+      function renderizarChecklistsDoCliente(nomeCliente) {
+        const tbody = document.getElementById("lista-checklists-cliente");
+        tbody.innerHTML = "";
+        const lista = carregarListaLocal();
+        const items = lista
+          .filter(
+            (x) =>
+              normalizarNomeCliente(x?.cliente?.nome_completo || "") ===
+              normalizarNomeCliente(nomeCliente),
+          )
+          .sort((a, b) =>
+            (b.created_at || "").localeCompare(a.created_at || ""),
+          );
+        if (items.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;">Vazio.</td></tr>`;
+          return;
+        }
+
+        items.slice(0, limiteChecklistsCliente).forEach((item) => {
+          const isRascunho = item.status === "RASCUNHO";
+          const stBadge = isRascunho
+            ? '<span class="badge draft">RASCUNHO</span>'
+            : '<span class="badge final">FINALIZADO</span>';
+          const btnPrint = !isRascunho
+            ? `<button class="icon-btn" onclick="imprimirChecklist('${item.id}')"><i class="ph ph-printer"></i></button>`
+            : "";
+          tbody.innerHTML += `<tr><td>${stBadge}</td><td>${item.veiculo.placa}</td><td>${item.veiculo.marca} ${item.veiculo.versao}</td><td>${formatarDataHoraISO(item.created_at)}</td><td><div class="row-actions">${btnPrint}<button class="icon-btn" onclick="editarChecklist('${item.id}')"><i class="ph ph-pencil-simple"></i></button><button class="icon-btn delete" onclick="excluirChecklist('${item.id}')"><i class="ph ph-trash"></i></button></div></td></tr>`;
+        });
+      }
+
+      function editarChecklist(id) {
+        const item = buscarChecklistPorId(id);
+        if (!item) return alert("Erro.");
+        editandoId = id;
+        document.getElementById("mecanico_responsavel").value =
+          item.mecanico_responsavel;
+        preencherFormularioComDadosDoCadastro(item);
+        document.getElementById("data_entrada").value = item.data_entrada;
+        document.getElementById("horario_entrada").value = item.horario_entrada;
+        setRadioValue("guincho", item.guincho);
+        if (item.autorizacoes)
+          setRadioValue("auth_imagem", item.autorizacoes.imagem);
+        document.getElementById("ultima_revisao_km").value =
+          item.historico.ultima_revisao_km;
+        document.getElementById("ultima_revisao_data").value =
+          item.historico.ultima_revisao_data;
+        document.getElementById("servico_solicitado").value =
+          item.historico.servico_solicitado;
+        if (item.historico.nivel_combustivel)
+          setFuelLevelByText(item.historico.nivel_combustivel);
+        document.getElementById("check_rascunho").checked =
+          item.status === "RASCUNHO";
+        atualizarUIEdicao();
+        fecharModal("modal-cliente");
+        fecharModal("modal-historico");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      function imprimirChecklist(id) {
+        const item = buscarChecklistPorId(id);
+        if (!item) return;
+        const veioDeGuincho = item.guincho === "SIM";
+        const win = window.open("", "", "height=800,width=900");
+        const authImagem = item.autorizacoes?.imagem || "SIM";
+        const nivelComb = item.historico?.nivel_combustivel || "-";
+
+        const htmlContent = `
+        <html>
+        <head>
+          <title>Checklist - ${item.veiculo?.placa}</title>
+          <style>
+            body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 14px; margin: 0; padding: 25px; color: #000; line-height: 1.5; }
+            .header { text-align: center; margin-bottom: 20px; border-bottom: 2px solid #000; padding-bottom: 10px; }
+            .brand { font-size: 26px; font-weight: bold; font-style: italic; }
+            .brand span { color: #EF4444; }
+            .box { border: 1px solid #000; margin-bottom: 18px; border-radius: 4px; overflow: hidden; }
+            .box-header { background: #eee; padding: 4px 8px; font-weight: bold; border-bottom: 1px solid #000; font-size: 12px; text-transform: uppercase; }
+            .box-content { padding: 6px; }
+            .row { display: flex; flex-wrap: wrap; }
+            .col { flex: 1; padding: 2px 4px; border-right: 1px solid #ddd; min-width: 80px; }
+            .col:last-child { border-right: none; }
+            .label { font-weight: bold; display: block; font-size: 10px; color: #444; margin-bottom: 1px; }
+            .value { display: block; font-size: 13px; text-transform: uppercase; font-weight: 600; min-height: 16px; }
+            .footer { margin-top: 30px; text-align: center; font-size: 11px; }
+            .auth-section { font-size: 11px; margin-bottom: 15px; }
+            .auth-row { margin-bottom: 6px; display: flex; align-items: center; }
+            .auth-check { font-family: monospace; font-weight: bold; margin-right: 12px; min-width: 100px; }
+            .auth-text { flex: 1; font-weight: bold; text-transform: uppercase; }
+            .page-break { page-break-before: always; margin-top: 30px; }
+            .chk-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-bottom: 1px dashed #bbb; }
+            @media print {
+              body { margin: 0; padding: 15px; }
+              .box-header { background: #ddd !important; -webkit-print-color-adjust: exact; }
+              .page-break { page-break-before: always; }
+            }
+          </style>
+        </head>
+        <body>
+          <div class="header"><div class="brand">AUTOCAR <span>BS</span></div><div style="font-size: 16px; font-weight:bold; margin-top:5px;">CHECKLIST DE ENTRADA</div></div>
+          <div class="box"><div class="box-header">DADOS DA ENTRADA</div><div class="box-content"><div class="row"><div class="col"><span class="label">DATA</span><span class="value">${item.data_entrada}</span></div><div class="col"><span class="label">HORA</span><span class="value">${item.horario_entrada}</span></div><div class="col" style="flex:2"><span class="label">MECÂNICO RESPONSÁVEL</span><span class="value">${item.mecanico_responsavel}</span></div><div class="col"><span class="label">GUINCHO?</span><span class="value">${item.guincho}</span></div></div></div></div>
+          <div class="box"><div class="box-header">DADOS DO CLIENTE</div><div class="box-content"><div class="row" style="border-bottom:1px solid #eee; margin-bottom:5px; padding-bottom:5px;"><div class="col" style="flex:2"><span class="label">NOME</span><span class="value">${item.cliente.nome_completo}</span></div><div class="col"><span class="label">CPF</span><span class="value">${item.cliente.cpf}</span></div><div class="col"><span class="label">TEL</span><span class="value">${item.cliente.telefone}</span></div></div><div class="row"><div class="col" style="flex:2"><span class="label">ENDEREÇO</span><span class="value">${item.cliente.endereco}, ${item.cliente.numero}</span></div><div class="col"><span class="label">BAIRRO/CIDADE/UF</span><span class="value">${item.cliente.bairro} / ${item.cliente.cidade} / ${item.cliente.uf}</span></div></div></div></div>
+          <div class="box"><div class="box-header">DADOS DO VEÍCULO</div><div class="box-content">
+            <div class="row" style="border-bottom:1px solid #eee; margin-bottom:5px; padding-bottom:5px;"><div class="col"><span class="label">PLACA</span><span class="value" style="font-size:16px;">${item.veiculo.placa}</span></div><div class="col"><span class="label">MARCA</span><span class="value">${item.veiculo.marca}</span></div><div class="col"><span class="label">VERSÃO</span><span class="value">${item.veiculo.versao}</span></div><div class="col"><span class="label">COR</span><span class="value">${item.veiculo.cor}</span></div></div>
+            <div class="row" style="border-bottom:1px solid #eee; margin-bottom:5px; padding-bottom:5px;"><div class="col"><span class="label">ANO</span><span class="value">${item.veiculo.ano_modelo}</span></div><div class="col"><span class="label">KM</span><span class="value">${item.veiculo.km}</span></div><div class="col" style="flex:2"><span class="label">CHASSI</span><span class="value">${item.veiculo.chassi}</span></div></div>
+            <div class="row" style="border-bottom:1px solid #eee; margin-bottom:5px; padding-bottom:5px;"><div class="col"><span class="label">COMB.</span><span class="value">${item.veiculo.combustivel}</span></div><div class="col"><span class="label">CÂMBIO</span><span class="value">${item.veiculo.cambio}</span></div><div class="col"><span class="label">PORTAS</span><span class="value">${item.veiculo.portas}</span></div><div class="col"><span class="label">DOC VEÍCULO?</span><span class="value">${item.veiculo.documento_no_veiculo}</span></div></div>
+            <div class="row"><div class="col"><span class="label">NÍVEL COMBUSTÍVEL (ENTRADA)</span><span class="value" style="font-size:16px;">${nivelComb}</span></div></div>
+          </div></div>
+          <div class="box"><div class="box-header">HISTÓRICO</div><div class="box-content"><div class="row"><div class="col"><span class="label">ÚLTIMA REV. DATA</span><span class="value">${item.historico.ultima_revisao_data || "-"}</span></div><div class="col"><span class="label">ÚLTIMA REV. KM</span><span class="value">${item.historico.ultima_revisao_km || "-"}</span></div></div></div></div>
+          <div class="box"><div class="box-header">SERVIÇO SOLICITADO</div><div class="box-content" style="min-height:100px; height:auto;"><span class="value" style="font-weight:normal;">${item.historico.servico_solicitado || "-"}</span></div></div>
+          <div style="margin-top:20px; border-bottom:2px solid #000; padding-bottom:15px;">
+             <div class="auth-section">
+                <div class="auth-row"><span class="auth-check">${authImagem === "SIM" ? "(X)SIM ( )NÃO" : "( )SIM (X)NÃO"}</span><span class="auth-text">AUTORIZA USO DE IMAGEM (RESTRIÇÃO PLACA)?</span></div>
+                <div style="margin-top:10px; background:#fef3c7; border:1px solid #f59e0b; padding:10px; font-weight:bold; font-size:11px;">ATENÇÃO: CASO SEJA NECESSÁRIO REALIZAR DIAGNÓSTICO TÉCNICO, HAVERÁ UM CUSTO INICIAL A PARTIR DE R$ 300,00.</div>
+             </div>
+          </div>
+          <div class="footer"><div style="display:flex; justify-content:space-between; gap:30px; margin-top:50px;"><div style="width:45%; text-align:center;"><div style="border-top:1px solid #000; padding-top:5px; font-weight:bold; font-size:11px;">ASSINATURA CLIENTE</div></div><div style="width:45%; text-align:center;"><div style="border-top:1px solid #000; padding-top:5px; font-weight:bold; font-size:11px;">ASSINATURA AUTOCAR BS</div></div></div>${veioDeGuincho ? '<div style="margin-top:40px; text-align:left;"><div style="border-top:1px solid #000; width:45%; padding-top:5px; font-weight:bold; font-size:11px; text-align:center;">ASSINATURA GUINCHO</div></div>' : ""}</div>
+          <div class="page-break"></div>
+          <div class="header"><div class="brand">AUTOCAR <span>BS</span></div><div style="font-size: 16px; font-weight:bold; margin-top:5px;">FOLHA DO MECÂNICO - PLACA: ${item.veiculo.placa}</div></div>
+          <div class="box"><div class="box-header">ENTRADA</div><div class="box-content" style="padding:5px;">
+            <div class="chk-row"><span>Necessidade troca de óleo?</span> <span>( ) SIM ( ) NÃO</span></div>
+            <div class="chk-row"><span>Colocar água limpador para-brisa?</span> <span>( ) SIM ( ) NÃO</span></div>
+            <div class="chk-row"><span>Limpar reservatório partida a frio?</span> <span>( ) SIM ( ) NÃO</span></div>
+            <div class="chk-row"><span>Lavar o motor?</span> <span>( ) SIM ( ) NÃO</span></div>
+            <div class="chk-row"><span>Trocar palhetas?</span> <span>( ) SIM ( ) NÃO</span></div>
+            <div class="chk-row"><span>Lubrificar portas?</span> <span>( ) SIM ( ) NÃO</span></div>
+            <div class="chk-row"><span>Regular freio de mão?</span> <span>( ) SIM ( ) NÃO</span></div>
+            <div class="chk-row"><span>Trocar alguma lâmpada?</span> <span>( ) SIM ( ) NÃO</span></div>
+            <div class="chk-row"><span>TESTE DE BATERIA (Se necessário)</span> <span>( ) OK ( ) RUIM</span></div>
+          </div></div>
+          <div class="box"><div class="box-header">SAÍDA</div><div class="box-content" style="padding:5px;">
+            <div class="chk-row"><span>Executou solicitações do cliente?</span> <span>( ) SIM ( ) NÃO</span></div>
+            <div class="chk-row"><span>Executou checklist de itens?</span> <span>( ) SIM ( ) NÃO</span></div>
+            <div class="chk-row"><span>Limpou marcas de graxa?</span> <span>( ) SIM ( ) NÃO</span></div>
+            <div class="chk-row"><span>Separou peças usadas?</span> <span>( ) SIM ( ) NÃO</span></div>
+            <div class="chk-row"><span>Testou o veículo?</span> <span>( ) SIM ( ) NÃO</span></div>
+            <div class="chk-row"><span>Calibrou os pneus?</span> <span>( ) SIM ( ) NÃO</span></div>
+            <div class="chk-row"><span>Apertou as rodas?</span> <span>( ) SIM ( ) NÃO</span></div>
+            <div class="chk-row"><span>Colocou capinha de parafusos?</span> <span>( ) SIM ( ) NÃO</span></div>
+            <div class="chk-row"><span>Reset luz de manutenção?</span> <span>( ) SIM ( ) NÃO</span></div>
+            <div class="chk-row"><span>Ajuste da hora do painel?</span> <span>( ) SIM ( ) NÃO</span></div>
+            <div class="chk-row"><span>Nível fluído de freio?</span> <span>( ) OK ( ) COMPLETOU</span></div>
+            <div class="chk-row"><span>Nível óleo direção?</span> <span>( ) OK ( ) COMPLETOU</span></div>
+            <div class="chk-row"><span>Nível líquido arrefecimento?</span> <span>( ) OK ( ) COMPLETOU</span></div>
+            <div class="chk-row"><span>Protetor de cárter fixado?</span> <span>( ) OK</span></div>
+          </div></div>
+          <div class="box"><div class="box-header">OBSERVAÇÕES TÉCNICAS</div><div class="box-content" style="height:120px;"></div></div>
+          <div class="footer"><div style="border-top:1px solid #000; width:60%; margin: 60px auto 0 auto; padding-top:5px;">ASSINATURA MECÂNICO RESPONSÁVEL</div><p style="margin-top:15px;">DATA SAÍDA: _____ / _____ / ________</p></div>
+        </body>
+        </html>
+      `;
+        win.document.write(htmlContent);
+        win.document.close();
+        setTimeout(() => {
+          win.focus();
+          win.print();
+        }, 500);
+      }
+
+      function limparFormulario(perguntar = true) {
+        if (perguntar && !confirm("Limpar todos os campos?")) return;
+        document.querySelectorAll("input, textarea, select").forEach((el) => {
+          if (el.type === "radio" || el.type === "checkbox") el.checked = false;
+          else if (el.id !== "data_entrada" && el.id !== "horario_entrada")
+            el.value = "";
+        });
+        setRadioValue("guincho", "NÃO");
+        setRadioValue("auth_imagem", "SIM");
+        setFuelLevelByText("VAZIO");
+        preencherDataHoraAtual();
+        editandoId = null;
+        atualizarUIEdicao();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      window.onload = function () {
+        carregarTemaSalvo();
+        preencherDataHoraAtual();
+        atualizarUIEdicao();
+        atualizarDatalistClientes();
+        setFuelLevelByText("VAZIO");
+      };
+    </script>
+  </body>
+</html>
