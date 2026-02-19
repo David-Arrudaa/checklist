@@ -75,15 +75,6 @@
         align-items: center;
         justify-content: flex-end;
       }
-      .brand {
-        font-size: 1.5rem;
-        font-weight: 800;
-        font-style: italic;
-      }
-      .brand span {
-        color: var(--primary);
-        font-style: normal;
-      }
       .icon-btn-header {
         background: var(--bg-card);
         border: 1px solid var(--border);
@@ -220,6 +211,7 @@
         user-select: none;
         color: var(--text-primary);
         cursor: pointer;
+        transition: opacity 0.2s;
       }
       html[data-theme="light"] .opt {
         background: rgba(0, 0, 0, 0.03);
@@ -306,36 +298,15 @@
         width: 3px;
         opacity: 1;
       }
-      .tick.t-0 {
-        transform: rotate(-90deg) translate(0, -94px);
-        background: var(--danger);
-      }
-      .tick.t-1 {
-        transform: rotate(-67.5deg) translate(0, -94px);
-      }
-      .tick.t-2 {
-        transform: rotate(-45deg) translate(0, -94px);
-      }
-      .tick.t-3 {
-        transform: rotate(-22.5deg) translate(0, -94px);
-      }
-      .tick.t-4 {
-        transform: rotate(0deg) translate(0, -94px);
-        height: 14px;
-      }
-      .tick.t-5 {
-        transform: rotate(22.5deg) translate(0, -94px);
-      }
-      .tick.t-6 {
-        transform: rotate(45deg) translate(0, -94px);
-      }
-      .tick.t-7 {
-        transform: rotate(67.5deg) translate(0, -94px);
-      }
-      .tick.t-8 {
-        transform: rotate(90deg) translate(0, -94px);
-        background: var(--success);
-      }
+      .tick.t-0 { transform: rotate(-90deg) translate(0, -94px); background: var(--danger); }
+      .tick.t-1 { transform: rotate(-67.5deg) translate(0, -94px); }
+      .tick.t-2 { transform: rotate(-45deg) translate(0, -94px); }
+      .tick.t-3 { transform: rotate(-22.5deg) translate(0, -94px); }
+      .tick.t-4 { transform: rotate(0deg) translate(0, -94px); height: 14px; }
+      .tick.t-5 { transform: rotate(22.5deg) translate(0, -94px); }
+      .tick.t-6 { transform: rotate(45deg) translate(0, -94px); }
+      .tick.t-7 { transform: rotate(67.5deg) translate(0, -94px); }
+      .tick.t-8 { transform: rotate(90deg) translate(0, -94px); background: var(--success); }
 
       .gauge-needle {
         position: absolute;
@@ -395,185 +366,61 @@
         background: transparent;
         cursor: pointer;
       }
-      input[type="range"]:focus {
-        outline: none;
-      }
+      input[type="range"]:focus { outline: none; }
       input[type="range"]::-webkit-slider-runnable-track {
-        width: 100%;
-        height: 8px;
-        cursor: pointer;
-        background: var(--border);
-        border-radius: 4px;
+        width: 100%; height: 8px; cursor: pointer; background: var(--border); border-radius: 4px;
       }
       input[type="range"]::-webkit-slider-thumb {
-        height: 24px;
-        width: 24px;
-        border-radius: 50%;
-        background: var(--primary);
-        cursor: pointer;
-        -webkit-appearance: none;
-        margin-top: -8px;
-        border: 2px solid var(--bg-card);
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        height: 24px; width: 24px; border-radius: 50%; background: var(--primary); cursor: pointer; -webkit-appearance: none; margin-top: -8px; border: 2px solid var(--bg-card); box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
       }
       input[type="range"]::-moz-range-track {
-        width: 100%;
-        height: 8px;
-        cursor: pointer;
-        background: var(--border);
-        border-radius: 4px;
+        width: 100%; height: 8px; cursor: pointer; background: var(--border); border-radius: 4px;
       }
       input[type="range"]::-moz-range-thumb {
-        height: 24px;
-        width: 24px;
-        border: 2px solid var(--bg-card);
-        border-radius: 50%;
-        background: var(--primary);
-        cursor: pointer;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        height: 24px; width: 24px; border: 2px solid var(--bg-card); border-radius: 50%; background: var(--primary); cursor: pointer; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
       }
 
       .modal-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.75);
-        z-index: 2000;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 10px;
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.75); z-index: 2000; display: flex; justify-content: center; align-items: center; padding: 10px;
       }
-      .hidden {
-        display: none !important;
-      }
+      .hidden { display: none !important; }
       .modal-form {
-        background: var(--bg-card);
-        padding: 20px;
-        border-radius: 8px;
-        width: 950px;
-        max-width: 100%;
-        max-height: 90vh;
-        overflow-y: auto;
-        border: 1px solid var(--border);
+        background: var(--bg-card); padding: 20px; border-radius: 8px; width: 950px; max-width: 100%; max-height: 90vh; overflow-y: auto; border: 1px solid var(--border);
       }
       .modal-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: 1px solid var(--border);
-        padding-bottom: 10px;
-        margin-bottom: 10px;
-        gap: 10px;
+        display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-bottom: 10px; gap: 10px;
       }
       .btn-close-modal {
-        background: transparent;
-        border: none;
-        color: var(--text-secondary);
-        cursor: pointer;
-        font-size: 1.5rem;
-        padding: 5px;
+        background: transparent; border: none; color: var(--text-secondary); cursor: pointer; font-size: 1.5rem; padding: 5px;
       }
-      .btn-close-modal:hover {
-        color: var(--text-primary);
-      }
+      .btn-close-modal:hover { color: var(--text-primary); }
       .search-wrapper {
-        background: var(--bg-input);
-        border: 1px solid var(--border);
-        border-radius: 6px;
-        padding: 10px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        margin-bottom: 10px;
+        background: var(--bg-input); border: 1px solid var(--border); border-radius: 6px; padding: 10px; display: flex; align-items: center; gap: 10px; margin-bottom: 10px;
       }
       .search-wrapper input {
-        background: transparent;
-        border: none;
-        color: var(--text-primary);
-        width: 100%;
-        outline: none;
-        text-transform: uppercase;
+        background: transparent; border: none; color: var(--text-primary); width: 100%; outline: none; text-transform: uppercase;
       }
-      table {
-        width: 100%;
-        border-collapse: collapse;
-      }
-      th,
-      td {
-        padding: 10px;
-        text-align: left;
-        border-bottom: 1px solid var(--border);
-        font-size: 0.9rem;
-      }
-      th {
-        color: var(--text-secondary);
-        font-size: 0.75rem;
-      }
-      .row-actions {
-        display: flex;
-        gap: 8px;
-        justify-content: flex-end;
-        align-items: center;
-        flex-wrap: wrap;
-      }
+      table { width: 100%; border-collapse: collapse; }
+      th, td { padding: 10px; text-align: left; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
+      th { color: var(--text-secondary); font-size: 0.75rem; }
+      .row-actions { display: flex; gap: 8px; justify-content: flex-end; align-items: center; flex-wrap: wrap; }
       .icon-btn {
-        background: transparent;
-        border: 1px solid transparent;
-        color: var(--text-secondary);
-        cursor: pointer;
-        font-size: 1.2rem;
-        padding: 6px;
-        border-radius: 6px;
-        transition: 0.2s;
+        background: transparent; border: 1px solid transparent; color: var(--text-secondary); cursor: pointer; font-size: 1.2rem; padding: 6px; border-radius: 6px; transition: 0.2s;
       }
-      .icon-btn:hover {
-        border-color: var(--border);
-        color: var(--text-primary);
-        background: rgba(255, 255, 255, 0.06);
-      }
-      html[data-theme="light"] .icon-btn:hover {
-        background: rgba(0, 0, 0, 0.04);
-      }
-      .icon-btn.delete:hover {
-        border-color: var(--danger);
-        color: var(--danger);
-        background: rgba(247, 90, 104, 0.12);
-      }
+      .icon-btn:hover { border-color: var(--border); color: var(--text-primary); background: rgba(255, 255, 255, 0.06); }
+      html[data-theme="light"] .icon-btn:hover { background: rgba(0, 0, 0, 0.04); }
+      .icon-btn.delete:hover { border-color: var(--danger); color: var(--danger); background: rgba(247, 90, 104, 0.12); }
 
       @media (max-width: 768px) {
-        body {
-          padding: 10px;
-        }
-        .brand {
-          font-size: 1.2rem;
-        }
-        .form-grid {
-          grid-template-columns: 1fr;
-          gap: 10px;
-        }
-        .actions {
-          justify-content: stretch;
-        }
-        .actions .btn {
-          width: 100%;
-        }
-        .header {
-          flex-direction: row;
-          align-items: center;
-        }
-        .header-actions {
-          width: auto;
-        }
-        .modal-form {
-          padding: 15px;
-        }
-        th:nth-child(4),
-        td:nth-child(4) {
-          display: none;
-        }
+        body { padding: 10px; }
+        .brand { font-size: 1.2rem; }
+        .form-grid { grid-template-columns: 1fr; gap: 10px; }
+        .actions { justify-content: stretch; }
+        .actions .btn { width: 100%; }
+        .header { flex-direction: row; align-items: center; }
+        .header-actions { width: auto; }
+        .modal-form { padding: 15px; }
+        th:nth-child(4), td:nth-child(4) { display: none; }
       }
     </style>
   </head>
@@ -581,31 +428,16 @@
   <body>
     <div class="container">
       <header class="header">
-        <div class="brand">AUTOCAR <span>BS</span></div>
+        <img src="logo.png" alt="Logo Autocar BS" style="max-height: 45px; object-fit: contain;">
+        
         <div class="header-actions">
-          <button
-            class="icon-btn-header"
-            type="button"
-            onclick="alternarTema()"
-            id="btn-tema"
-            title="Mudar Tema"
-          >
+          <button class="icon-btn-header" type="button" onclick="alternarTema()" id="btn-tema" title="Mudar Tema">
             <i class="ph ph-sun"></i>
           </button>
-          <button
-            class="icon-btn-header"
-            type="button"
-            onclick="abrirHistorico()"
-            title="Histórico"
-          >
+          <button class="icon-btn-header" type="button" onclick="abrirHistorico()" title="Histórico">
             <i class="ph ph-clock-counter-clockwise"></i>
           </button>
-          <button
-            class="icon-btn-header"
-            type="button"
-            onclick="limparFormulario()"
-            title="Limpar Tudo"
-          >
+          <button class="icon-btn-header" type="button" onclick="limparFormulario()" title="Limpar Tudo">
             <i class="ph ph-broom"></i>
           </button>
         </div>
@@ -613,32 +445,14 @@
 
       <section class="card">
         <h2 class="card-title"><i class="ph ph-note-pencil"></i>Modo</h2>
-        <div
-          class="options-row"
-          style="justify-content: space-between; width: 100%"
-        >
+        <div class="options-row" style="justify-content: space-between; width: 100%">
           <label class="opt">
             <input type="checkbox" id="check_rascunho" />
             Salvar como RASCUNHO
           </label>
-          <div
-            style="
-              display: flex;
-              align-items: center;
-              gap: 10px;
-              flex-wrap: wrap;
-            "
-          >
-            <span id="status-edicao" class="badge" title="Status do registro"
-              >NOVO</span
-            >
-            <button
-              class="btn btn-secondary"
-              type="button"
-              onclick="cancelarEdicao()"
-              id="btn-cancelar-edicao"
-              style="display: none"
-            >
+          <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+            <span id="status-edicao" class="badge" title="Status do registro">NOVO</span>
+            <button class="btn btn-secondary" type="button" onclick="cancelarEdicao()" id="btn-cancelar-edicao" style="display: none">
               <i class="ph ph-x-circle"></i> Cancelar edição
             </button>
           </div>
@@ -650,11 +464,7 @@
         <div class="form-grid">
           <div class="form-control">
             <label>MECÂNICO RESPONSAVEL</label>
-            <input
-              id="mecanico_responsavel"
-              type="text"
-              placeholder="NOME DO MECÂNICO"
-            />
+            <input id="mecanico_responsavel" type="text" placeholder="NOME DO MECÂNICO" />
           </div>
           <div class="form-control">
             <label>DATA ENTRADA</label>
@@ -667,67 +477,34 @@
           <div class="form-control">
             <label>CHEGOU DE GUINCHO?</label>
             <div class="options-row">
-              <label class="opt"
-                ><input type="radio" name="guincho" value="SIM" />( ) SIM</label
-              >
-              <label class="opt"
-                ><input type="radio" name="guincho" value="NÃO" checked />( )
-                NÃO</label
-              >
+              <label class="opt"><input type="radio" name="guincho" value="SIM" />( ) SIM</label>
+              <label class="opt"><input type="radio" name="guincho" value="NÃO" checked />( ) NÃO</label>
             </div>
           </div>
         </div>
       </section>
 
       <section class="card">
-        <h2 class="card-title">
-          <i class="ph ph-user"></i>Dados do cliente (Cadastro)
-        </h2>
+        <h2 class="card-title"><i class="ph ph-user"></i>Dados do cliente (Cadastro)</h2>
         <div class="form-grid">
           <div class="form-control">
             <label>NOME COMPLETO</label>
-            <input
-              id="cliente_nome_completo"
-              type="text"
-              list="lista-clientes-sugestao"
-              placeholder="DIGITE O NOME..."
-              onchange="verificarClienteCadastrado(this)"
-              autocomplete="off"
-            />
+            <input id="cliente_nome_completo" type="text" list="lista-clientes-sugestao" placeholder="DIGITE O NOME..." onchange="verificarClienteCadastrado(this)" autocomplete="off" />
             <datalist id="lista-clientes-sugestao"></datalist>
           </div>
           <div class="form-control">
             <label>CPF N°</label>
-            <input
-              id="cliente_cpf"
-              type="text"
-              placeholder="000.000.000-00"
-              maxlength="14"
-              oninput="mascaraCPF(this)"
-            />
+            <input id="cliente_cpf" type="text" placeholder="000.000.000-00" maxlength="14" oninput="mascaraCPF(this)" />
           </div>
           <div class="form-control">
             <label>TELEFONE N°</label>
-            <input
-              id="cliente_telefone"
-              type="text"
-              placeholder="(00) 00000-0000"
-              maxlength="15"
-              oninput="mascaraTelefone(this)"
-            />
+            <input id="cliente_telefone" type="text" placeholder="(00) 00000-0000" maxlength="15" oninput="mascaraTelefone(this)" />
           </div>
 
           <div class="form-control">
             <label>CEP (Busca Automática)</label>
             <div class="input-icon-group">
-              <input
-                id="cliente_cep"
-                type="text"
-                placeholder="00000-000"
-                maxlength="9"
-                oninput="mascaraCEP(this)"
-                onblur="buscarEnderecoPorCep()"
-              />
+              <input id="cliente_cep" type="text" placeholder="00000-000" maxlength="9" oninput="mascaraCEP(this)" onblur="buscarEnderecoPorCep()" />
               <i class="ph ph-magnifying-glass" id="icon-cep-loading"></i>
             </div>
           </div>
@@ -735,33 +512,13 @@
             <label>UF</label>
             <select id="cliente_uf">
               <option value="">Selecione...</option>
-              <option value="AC">AC</option>
-              <option value="AL">AL</option>
-              <option value="AP">AP</option>
-              <option value="AM">AM</option>
-              <option value="BA">BA</option>
-              <option value="CE">CE</option>
-              <option value="DF">DF</option>
-              <option value="ES">ES</option>
-              <option value="GO">GO</option>
-              <option value="MA">MA</option>
-              <option value="MT">MT</option>
-              <option value="MS">MS</option>
-              <option value="MG">MG</option>
-              <option value="PA">PA</option>
-              <option value="PB">PB</option>
-              <option value="PR">PR</option>
-              <option value="PE">PE</option>
-              <option value="PI">PI</option>
-              <option value="RJ">RJ</option>
-              <option value="RN">RN</option>
-              <option value="RS">RS</option>
-              <option value="RO">RO</option>
-              <option value="RR">RR</option>
-              <option value="SC">SC</option>
-              <option value="SP">SP</option>
-              <option value="SE">SE</option>
-              <option value="TO">TO</option>
+              <option value="AC">AC</option><option value="AL">AL</option><option value="AP">AP</option><option value="AM">AM</option>
+              <option value="BA">BA</option><option value="CE">CE</option><option value="DF">DF</option><option value="ES">ES</option>
+              <option value="GO">GO</option><option value="MA">MA</option><option value="MT">MT</option><option value="MS">MS</option>
+              <option value="MG">MG</option><option value="PA">PA</option><option value="PB">PB</option><option value="PR">PR</option>
+              <option value="PE">PE</option><option value="PI">PI</option><option value="RJ">RJ</option><option value="RN">RN</option>
+              <option value="RS">RS</option><option value="RO">RO</option><option value="RR">RR</option><option value="SC">SC</option>
+              <option value="SP">SP</option><option value="SE">SE</option><option value="TO">TO</option>
             </select>
           </div>
 
@@ -776,17 +533,8 @@
           <div class="form-control">
             <label>ENDEREÇO (Rua/Av)</label>
             <div class="input-icon-group">
-              <input
-                id="cliente_endereco"
-                type="text"
-                placeholder="RUA / AVENIDA"
-                onblur="buscarCepPorEndereco()"
-              />
-              <i
-                class="ph ph-arrows-clockwise"
-                id="icon-end-loading"
-                style="display: none"
-              ></i>
+              <input id="cliente_endereco" type="text" placeholder="RUA / AVENIDA" onblur="buscarCepPorEndereco()" />
+              <i class="ph ph-arrows-clockwise" id="icon-end-loading" style="display: none"></i>
             </div>
           </div>
           <div class="form-control">
@@ -802,26 +550,14 @@
           <div class="form-control">
             <label>PLACA (Busca Automática)</label>
             <div class="input-icon-group">
-              <input
-                id="veiculo_placa"
-                type="text"
-                placeholder="ABC-1234"
-                onblur="consultarPlaca(this)"
-                oninput="mascaraPlaca(this)"
-                maxlength="8"
-              />
+              <input id="veiculo_placa" type="text" placeholder="ABC-1234" onblur="consultarPlaca(this)" oninput="mascaraPlaca(this)" maxlength="8" />
               <i class="ph ph-magnifying-glass" id="icon-placa-loading"></i>
             </div>
           </div>
 
           <div class="form-control">
             <label>N° CHASSI</label>
-            <input
-              id="veiculo_chassi"
-              type="text"
-              placeholder="CHASSI"
-              oninput="this.value = this.value.toUpperCase()"
-            />
+            <input id="veiculo_chassi" type="text" placeholder="CHASSI" oninput="this.value = this.value.toUpperCase()" />
           </div>
           <div class="form-control">
             <label>MARCA</label>
@@ -833,22 +569,11 @@
           </div>
           <div class="form-control">
             <label>KM</label>
-            <input
-              id="veiculo_km"
-              type="text"
-              placeholder="EX: 123456"
-              oninput="mascaraNumeros(this)"
-            />
+            <input id="veiculo_km" type="text" placeholder="EX: 123456" oninput="mascaraNumeros(this)" />
           </div>
           <div class="form-control">
             <label>ANO/MODELO</label>
-            <input
-              id="veiculo_ano_modelo"
-              type="text"
-              placeholder="EX: 2012/2013"
-              maxlength="9"
-              oninput="mascaraAnoModelo(this)"
-            />
+            <input id="veiculo_ano_modelo" type="text" placeholder="EX: 2012/2013" maxlength="9" oninput="mascaraAnoModelo(this)" />
           </div>
           <div class="form-control">
             <label>COR</label>
@@ -857,106 +582,58 @@
           <div class="form-control">
             <label>COMBUSTÍVEL</label>
             <div class="options-row">
-              <label class="opt"
-                ><input type="radio" name="combustivel" value="ALCOOL" />( )
-                ALCOOL</label
-              >
-              <label class="opt"
-                ><input type="radio" name="combustivel" value="GASOLINA" />( )
-                GASOLINA</label
-              >
-              <label class="opt"
-                ><input type="radio" name="combustivel" value="FLEX" />( )
-                FLEX</label
-              >
-              <label class="opt"
-                ><input type="radio" name="combustivel" value="DIESEL" />( )
-                DIESEL</label
-              >
+              <label class="opt"><input type="radio" name="combustivel" value="ALCOOL" />( ) ALCOOL</label>
+              <label class="opt"><input type="radio" name="combustivel" value="GASOLINA" />( ) GASOLINA</label>
+              <label class="opt"><input type="radio" name="combustivel" value="FLEX" />( ) FLEX</label>
+              <label class="opt"><input type="radio" name="combustivel" value="DIESEL" />( ) DIESEL</label>
             </div>
           </div>
           <div class="form-control">
             <label>CÂMBIO</label>
             <div class="options-row">
-              <label class="opt"
-                ><input type="radio" name="cambio" value="MANUAL" />( )
-                MANUAL</label
-              >
-              <label class="opt"
-                ><input type="radio" name="cambio" value="AUTOMATICO" />( )
-                AUTOMATICO</label
-              >
+              <label class="opt"><input type="radio" name="cambio" value="MANUAL" />( ) MANUAL</label>
+              <label class="opt"><input type="radio" name="cambio" value="AUTOMATICO" />( ) AUTOMATICO</label>
             </div>
           </div>
           <div class="form-control">
             <label>DOCUMENTO ESTÁ NO VEICULO?</label>
             <div class="options-row">
-              <label class="opt"
-                ><input type="radio" name="documento_no_veiculo" value="SIM" />(
-                ) SIM</label
-              >
-              <label class="opt"
-                ><input type="radio" name="documento_no_veiculo" value="NÃO" />(
-                ) NÃO</label
-              >
+              <label class="opt"><input type="radio" name="documento_no_veiculo" value="SIM" />( ) SIM</label>
+              <label class="opt"><input type="radio" name="documento_no_veiculo" value="NÃO" />( ) NÃO</label>
             </div>
           </div>
           <div class="form-control">
             <label>PORTAS</label>
             <div class="options-row">
-              <label class="opt"
-                ><input type="radio" name="portas" value="2PORTAS" />( )
-                2PORTAS</label
-              >
-              <label class="opt"
-                ><input type="radio" name="portas" value="4PORTAS" />( )
-                4PORTAS</label
-              >
+              <label class="opt"><input type="radio" name="portas" value="2PORTAS" />( ) 2PORTAS</label>
+              <label class="opt"><input type="radio" name="portas" value="4PORTAS" />( ) 4PORTAS</label>
+            </div>
+          </div>
+
+          <div class="form-control">
+            <label>LUZ DE PAINEL ACESA?</label>
+            <div class="options-row">
+              <label class="opt"><input type="radio" name="luz_painel" value="SIM" onchange="verificarLuzPainel()" />( ) SIM</label>
+              <label class="opt"><input type="radio" name="luz_painel" value="NÃO" onchange="verificarLuzPainel()" checked />( ) NÃO</label>
             </div>
           </div>
 
           <div class="gauge-wrapper">
-            <label
-              style="
-                margin-bottom: 10px;
-                display: block;
-                width: 100%;
-                text-align: center;
-                font-weight: bold;
-              "
-              >NÍVEL DE COMBUSTÍVEL</label
-            >
+            <label style="margin-bottom: 10px; display: block; width: 100%; text-align: center; font-weight: bold;">NÍVEL DE COMBUSTÍVEL</label>
             <div class="gauge-body">
               <div class="gauge-ticks">
-                <div class="tick major t-0"></div>
-                <div class="tick t-1"></div>
-                <div class="tick major t-2"></div>
-                <div class="tick t-3"></div>
-                <div class="tick major t-4"></div>
-                <div class="tick t-5"></div>
-                <div class="tick major t-6"></div>
-                <div class="tick t-7"></div>
-                <div class="tick major t-8"></div>
+                <div class="tick major t-0"></div><div class="tick t-1"></div><div class="tick major t-2"></div><div class="tick t-3"></div>
+                <div class="tick major t-4"></div><div class="tick t-5"></div><div class="tick major t-6"></div><div class="tick t-7"></div><div class="tick major t-8"></div>
               </div>
               <div class="gauge-needle" id="gauge-pointer"></div>
               <div class="gauge-center"></div>
             </div>
             <div class="gauge-labels">
-              <span>E</span>
-              <span>1/2</span>
-              <span>F</span>
+              <span>E</span><span>1/2</span><span>F</span>
             </div>
 
             <div class="fuel-control">
-              <input
-                type="range"
-                id="fuel-slider"
-                min="0"
-                max="8"
-                step="1"
-                value="0"
-                oninput="updateFuelFromSlider(this.value)"
-              />
+              <input type="range" id="fuel-slider" min="0" max="8" step="1" value="0" oninput="updateFuelFromSlider(this.value)" />
               <div id="fuel-text-display" class="fuel-text">VAZIO</div>
             </div>
             <input type="hidden" id="nivel_combustivel" value="VAZIO" />
@@ -965,126 +642,58 @@
       </section>
 
       <section class="card">
-        <h2 class="card-title">
-          <i class="ph ph-shield-check"></i>Autorizações e Avisos
-        </h2>
-        <div
-          style="
-            background: var(--bg-input);
-            padding: 10px;
-            border-radius: 6px;
-            border: 1px solid var(--border);
-            margin-bottom: 10px;
-          "
-        >
-          <div
-            style="
-              margin-bottom: 5px;
-              font-size: 0.85rem;
-              color: var(--text-secondary);
-            "
-          >
-            A assinatura do cliente autoriza o uso de imagem (restrição placa)?
-          </div>
+        <h2 class="card-title"><i class="ph ph-shield-check"></i>Autorizações e Avisos</h2>
+        <div style="background: var(--bg-input); padding: 10px; border-radius: 6px; border: 1px solid var(--border); margin-bottom: 10px;">
+          <div style="margin-bottom: 5px; font-size: 0.85rem; color: var(--text-secondary);">A assinatura do cliente autoriza o uso de imagem (restrição placa)?</div>
           <div class="options-row">
-            <label class="opt"
-              ><input
-                type="radio"
-                name="auth_imagem"
-                value="SIM"
-                checked
-              />SIM</label
-            >
-            <label class="opt"
-              ><input type="radio" name="auth_imagem" value="NÃO" />NÃO</label
-            >
+            <label class="opt"><input type="radio" name="auth_imagem" value="SIM" checked />SIM</label>
+            <label class="opt"><input type="radio" name="auth_imagem" value="NÃO" />NÃO</label>
           </div>
         </div>
-        <div
-          style="
-            background: rgba(245, 158, 11, 0.1);
-            padding: 15px;
-            border-radius: 6px;
-            border: 1px solid var(--warning);
-            display: flex;
-            align-items: start;
-            gap: 10px;
-          "
-        >
-          <i
-            class="ph ph-warning"
-            style="color: var(--warning); font-size: 1.5rem"
-          ></i>
-          <div>
-            <strong
-              style="color: var(--warning); display: block; margin-bottom: 5px"
-              >ATENÇÃO - DIAGNÓSTICO TÉCNICO</strong
-            >
-            <p
-              style="margin: 0; font-size: 0.85rem; color: var(--text-primary)"
-            >
-              Caso seja necessário realizar diagnóstico técnico, haverá um custo
-              inicial a partir de <strong>R$ 300,00</strong>.
-            </p>
+        
+        <div style="background: rgba(245, 158, 11, 0.1); padding: 15px; border-radius: 6px; border: 1px solid var(--warning); display: flex; flex-direction: column; gap: 10px;">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <i class="ph ph-warning" style="color: var(--warning); font-size: 1.5rem"></i>
+            <strong style="color: var(--warning);">DIAGNÓSTICO TÉCNICO</strong>
+          </div>
+          <p style="margin: 0; font-size: 0.85rem; color: var(--text-primary)">
+          O DIAGNÓSTICO TÉCNICO INCLUI ESCANEAMENTO ELETRÔNICO COMPLETO, TESTES DE ATUADORES E SENSORES, AVALIAÇÃO DE GRANDEZAS ELÉTRICAS (TENSÃO, RESISTÊNCIA, CONTINUIDADE E SINAIS), TESTES FUNCIONAIS E ANÁLISE TÉCNICA AVANÇADA PARA IDENTIFICAÇÃO DA CAUSA RAIZ DO PROBLEMA, EVITANDO TROCAS DESNECESSÁRIAS DE COMPONENTES.
+          </p>
+          <div class="options-row" style="margin-top: 5px;">
+            <label class="opt" id="label_diag_nao"><input type="radio" name="diagnostico" value="NÃO" checked />( ) NÃO SOLICITADO</label>
+            <label class="opt"><input type="radio" name="diagnostico" value="POPULAR" />( ) CARRO POPULAR - R$ 250,00</label>
+            <label class="opt"><input type="radio" name="diagnostico" value="PREMIUM" />( ) CARRO PREMIUM - R$ 350,00</label>
           </div>
         </div>
       </section>
 
       <section class="card">
-        <h2 class="card-title">
-          <i class="ph ph-clipboard-text"></i>Serviço e histórico (Opcional)
-        </h2>
+        <h2 class="card-title"><i class="ph ph-clipboard-text"></i>Serviço e histórico (Opcional)</h2>
         <div class="form-grid">
           <div class="form-control">
             <label>ULTIMA REVISÃO KM (Preenchimento Automático)</label>
-            <input
-              id="ultima_revisao_km"
-              type="text"
-              placeholder="KM"
-              oninput="mascaraNumeros(this)"
-            />
+            <input id="ultima_revisao_km" type="text" placeholder="KM" oninput="mascaraNumeros(this)" />
           </div>
           <div class="form-control">
             <label>DATA</label>
-            <input
-              id="ultima_revisao_data"
-              type="text"
-              placeholder="DD/MM/AAAA"
-            />
+            <input id="ultima_revisao_data" type="text" placeholder="DD/MM/AAAA" />
           </div>
           <div class="form-control" style="grid-column: 1 / -1">
-            <label
-              >SERVIÇO SOLICITADO PELO CLIENTE (escreva exatamente como o
-              cliente relatou)</label
-            >
-            <textarea
-              id="servico_solicitado"
-              placeholder="Digite aqui..."
-            ></textarea>
+            <label>SERVIÇO SOLICITADO PELO CLIENTE (escreva exatamente como o cliente relatou)</label>
+            <textarea id="servico_solicitado" placeholder="Digite aqui..."></textarea>
           </div>
         </div>
       </section>
 
       <section class="card">
         <div class="actions">
-          <button
-            class="btn btn-primary"
-            type="button"
-            onclick="salvarOuAtualizar()"
-          >
+          <button class="btn btn-primary" type="button" onclick="salvarOuAtualizar()">
             <i class="ph ph-floppy-disk"></i>
             <span id="txt-btn-salvar">Salvar entrada</span>
           </button>
         </div>
-        <p
-          style="
-            margin: 10px 0 0 0;
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-          "
-        >
-          RASCUNHO: salva mesmo incompleto. FINALIZADO: exige campos
-          obrigatórios (exceto Histórico).
+        <p style="margin: 10px 0 0 0; color: var(--text-secondary); font-size: 0.85rem;">
+          RASCUNHO: salva mesmo incompleto. FINALIZADO: exige campos obrigatórios (exceto Histórico).
         </p>
       </section>
     </div>
@@ -1092,87 +701,24 @@
     <div id="modal-historico" class="modal-overlay hidden">
       <div class="modal-form">
         <div class="modal-header">
-          <h3
-            style="
-              margin: 0;
-              color: var(--info);
-              display: flex;
-              gap: 10px;
-              align-items: center;
-            "
-          >
-            <i class="ph ph-users"></i> Clientes (Histórico)
-          </h3>
-          <button
-            class="btn-close-modal"
-            onclick="fecharModal('modal-historico')"
-            title="Fechar"
-          >
-            <i class="ph ph-x"></i>
-          </button>
+          <h3 style="margin: 0; color: var(--info); display: flex; gap: 10px; align-items: center;"><i class="ph ph-users"></i> Clientes (Histórico)</h3>
+          <button class="btn-close-modal" onclick="fecharModal('modal-historico')" title="Fechar"><i class="ph ph-x"></i></button>
         </div>
         <div class="search-wrapper">
           <i class="ph ph-magnifying-glass"></i>
-          <input
-            id="busca-historico"
-            type="text"
-            placeholder="BUSCAR CLIENTE..."
-            onkeyup="
-              paginaClientes = 1;
-              renderizarClientes();
-            "
-          />
+          <input id="busca-historico" type="text" placeholder="BUSCAR CLIENTE..." onkeyup="paginaClientes = 1; renderizarClientes();" />
         </div>
-        <div
-          style="
-            overflow: auto;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-          "
-        >
+        <div style="overflow: auto; border: 1px solid var(--border); border-radius: 8px;">
           <table>
-            <thead>
-              <tr>
-                <th>Cliente</th>
-                <th>Total</th>
-                <th>Último</th>
-                <th style="text-align: right">Ações</th>
-              </tr>
-            </thead>
+            <thead><tr><th>Cliente</th><th>Total</th><th>Último</th><th style="text-align: right">Ações</th></tr></thead>
             <tbody id="lista-clientes"></tbody>
           </table>
         </div>
         <div class="divider"></div>
-        <div
-          style="
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-          "
-        >
-          <button
-            class="btn btn-secondary"
-            type="button"
-            id="btn-cli-prev"
-            onclick="mudarPaginaClientes(-1)"
-          >
-            Anterior
-          </button>
-          <span
-            id="page-info-clientes"
-            style="color: var(--text-secondary); font-size: 0.9rem"
-            >Página 1</span
-          >
-          <button
-            class="btn btn-secondary"
-            type="button"
-            id="btn-cli-next"
-            onclick="mudarPaginaClientes(1)"
-          >
-            Próxima
-          </button>
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap;">
+          <button class="btn btn-secondary" type="button" id="btn-cli-prev" onclick="mudarPaginaClientes(-1)">Anterior</button>
+          <span id="page-info-clientes" style="color: var(--text-secondary); font-size: 0.9rem">Página 1</span>
+          <button class="btn btn-secondary" type="button" id="btn-cli-next" onclick="mudarPaginaClientes(1)">Próxima</button>
         </div>
       </div>
     </div>
@@ -1180,67 +726,27 @@
     <div id="modal-cliente" class="modal-overlay hidden">
       <div class="modal-form">
         <div class="modal-header">
-          <h3
-            id="titulo-cliente"
-            style="
-              margin: 0;
-              color: var(--warning);
-              display: flex;
-              gap: 10px;
-              align-items: center;
-            "
-          >
-            <i class="ph ph-user"></i> Cliente
-          </h3>
-          <button
-            class="btn-close-modal"
-            onclick="fecharModal('modal-cliente')"
-            title="Fechar"
-          >
-            <i class="ph ph-x"></i>
-          </button>
+          <h3 id="titulo-cliente" style="margin: 0; color: var(--warning); display: flex; gap: 10px; align-items: center;"><i class="ph ph-user"></i> Cliente</h3>
+          <button class="btn-close-modal" onclick="fecharModal('modal-cliente')" title="Fechar"><i class="ph ph-x"></i></button>
         </div>
-        <div
-          style="
-            overflow: auto;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-          "
-        >
+        <div style="overflow: auto; border: 1px solid var(--border); border-radius: 8px;">
           <table>
-            <thead>
-              <tr>
-                <th>Status</th>
-                <th>Placa</th>
-                <th>Veículo</th>
-                <th>Data/Hora</th>
-                <th style="text-align: right">Ações</th>
-              </tr>
-            </thead>
+            <thead><tr><th>Status</th><th>Placa</th><th>Veículo</th><th>Data/Hora</th><th style="text-align: right">Ações</th></tr></thead>
             <tbody id="lista-checklists-cliente"></tbody>
           </table>
         </div>
         <div class="divider"></div>
-        <button
-          class="btn btn-secondary"
-          type="button"
-          id="btn-cli-mais"
-          onclick="carregarMaisChecklistsCliente()"
-        >
-          Carregar mais 20
-        </button>
+        <button class="btn btn-secondary" type="button" id="btn-cli-mais" onclick="carregarMaisChecklistsCliente()">Carregar mais 20</button>
       </div>
     </div>
 
     <script>
       // --- API / VARIAVEIS ---
       const API_LOGIN_URL = "https://placas.app.br/api/v1/authenticate";
-      const API_URL_CONSULTA_BASE =
-        "https://placas.app.br/api/v1/placas/numero";
+      const API_URL_CONSULTA_BASE = "https://placas.app.br/api/v1/placas/numero";
       const API_USER = "dr.renatotavares@gmail.com";
       const API_PASS = "123456";
-      let apiTokenAtual =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.zEnnU_MTjz5XyKM77g_rGqXLx0Lqh5l_qhZCshgus4A";
+      let apiTokenAtual = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.zEnnU_MTjz5XyKM77g_rGqXLx0Lqh5l_qhZCshgus4A";
 
       const LS_KEY_CHECKLISTS = "autocar_checklists_entrada_v25";
       const LS_KEY_TOKEN = "autocar_api_token";
@@ -1266,8 +772,7 @@
         const idx = parseInt(val);
         const data = FUEL_MAP[idx];
         if (!data) return;
-        document.getElementById("gauge-pointer").style.transform =
-          `rotate(${data.deg}deg)`;
+        document.getElementById("gauge-pointer").style.transform = `rotate(${data.deg}deg)`;
         document.getElementById("fuel-text-display").innerText = data.label;
         document.getElementById("nivel_combustivel").value = data.label;
       }
@@ -1359,8 +864,7 @@
             }
             document.getElementById("veiculo_marca").value = marcaFinal;
             document.getElementById("veiculo_versao").value = modeloFinal;
-            document.getElementById("veiculo_ano_modelo").value =
-              `${ano}/${anoModelo}`;
+            document.getElementById("veiculo_ano_modelo").value = `${ano}/${anoModelo}`;
             document.getElementById("veiculo_cor").value = cor;
             document.getElementById("veiculo_chassi").value = chassi;
           } else {
@@ -1427,12 +931,9 @@
           const resp = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
           const data = await resp.json();
           if (!data.erro) {
-            document.getElementById("cliente_endereco").value =
-              data.logradouro.toUpperCase();
-            document.getElementById("cliente_bairro").value =
-              data.bairro.toUpperCase();
-            document.getElementById("cliente_cidade").value =
-              data.localidade.toUpperCase();
+            document.getElementById("cliente_endereco").value = data.logradouro.toUpperCase();
+            document.getElementById("cliente_bairro").value = data.bairro.toUpperCase();
+            document.getElementById("cliente_cidade").value = data.localidade.toUpperCase();
             document.getElementById("cliente_uf").value = data.uf;
             document.getElementById("cliente_numero").focus();
           } else {
@@ -1464,8 +965,7 @@
           if (Array.isArray(data) && data.length > 0) {
             cepInput.value = data[0].cep;
             if (!document.getElementById("cliente_bairro").value) {
-              document.getElementById("cliente_bairro").value =
-                data[0].bairro.toUpperCase();
+              document.getElementById("cliente_bairro").value = data[0].bairro.toUpperCase();
             }
           }
         } catch (e) {
@@ -1529,50 +1029,32 @@
         }
       }
 
-      // --- AQUI ESTÁ A LÓGICA DE PUXAR HISTÓRICO AUTOMÁTICO ---
       function preencherFormularioComDadosDoCadastro(item) {
         document.getElementById("cliente_cpf").value = item.cliente?.cpf || "";
-        document.getElementById("cliente_telefone").value =
-          item.cliente?.telefone || "";
+        document.getElementById("cliente_telefone").value = item.cliente?.telefone || "";
         document.getElementById("cliente_cep").value = item.cliente?.cep || "";
         document.getElementById("cliente_uf").value = item.cliente?.uf || "";
-        document.getElementById("cliente_cidade").value =
-          item.cliente?.cidade || "";
-        document.getElementById("cliente_bairro").value =
-          item.cliente?.bairro || "";
-        document.getElementById("cliente_endereco").value =
-          item.cliente?.endereco || "";
-        document.getElementById("cliente_numero").value =
-          item.cliente?.numero || "";
-        document.getElementById("veiculo_chassi").value =
-          item.veiculo?.chassi || "";
-        document.getElementById("veiculo_placa").value =
-          item.veiculo?.placa || "";
-        document.getElementById("veiculo_marca").value =
-          item.veiculo?.marca || "";
-        document.getElementById("veiculo_versao").value =
-          item.veiculo?.versao || "";
-        document.getElementById("veiculo_km").value = item.veiculo?.km || ""; // KM atual daquele momento
-        document.getElementById("veiculo_ano_modelo").value =
-          item.veiculo?.ano_modelo || "";
+        document.getElementById("cliente_cidade").value = item.cliente?.cidade || "";
+        document.getElementById("cliente_bairro").value = item.cliente?.bairro || "";
+        document.getElementById("cliente_endereco").value = item.cliente?.endereco || "";
+        document.getElementById("cliente_numero").value = item.cliente?.numero || "";
+        document.getElementById("veiculo_chassi").value = item.veiculo?.chassi || "";
+        document.getElementById("veiculo_placa").value = item.veiculo?.placa || "";
+        document.getElementById("veiculo_marca").value = item.veiculo?.marca || "";
+        document.getElementById("veiculo_versao").value = item.veiculo?.versao || "";
+        document.getElementById("veiculo_km").value = item.veiculo?.km || ""; 
+        document.getElementById("veiculo_ano_modelo").value = item.veiculo?.ano_modelo || "";
         document.getElementById("veiculo_cor").value = item.veiculo?.cor || "";
         setRadioValue("combustivel", item.veiculo?.combustivel);
         setRadioValue("cambio", item.veiculo?.cambio);
-        setRadioValue(
-          "documento_no_veiculo",
-          item.veiculo?.documento_no_veiculo,
-        );
+        setRadioValue("documento_no_veiculo", item.veiculo?.documento_no_veiculo);
         setRadioValue("portas", item.veiculo?.portas);
 
-        // --- PREENCHIMENTO AUTOMÁTICO DO HISTÓRICO DE REVISÃO ---
-        // O KM da visita anterior vira o "Última Revisão KM" desta visita
         if (item.veiculo && item.veiculo.km) {
           document.getElementById("ultima_revisao_km").value = item.veiculo.km;
         }
-        // A data da visita anterior vira "Última Revisão Data"
         if (item.data_entrada) {
-          document.getElementById("ultima_revisao_data").value =
-            item.data_entrada;
+          document.getElementById("ultima_revisao_data").value = item.data_entrada;
         }
       }
 
@@ -1610,9 +1092,7 @@
       }
       function setRadioValue(name, value) {
         if (!value) return;
-        const el = document.querySelector(
-          `input[name="${name}"][value="${value}"]`,
-        );
+        const el = document.querySelector(`input[name="${name}"][value="${value}"]`);
         if (el) el.checked = true;
       }
       function normalizarNomeCliente(nome) {
@@ -1667,11 +1147,27 @@
         limparFormulario(false);
       }
 
-      // --- NOVA LÓGICA DE SALVAMENTO COM VALIDAÇÃO ---
+      // --- LOGICA: LUZ DE PAINEL ---
+      function verificarLuzPainel() {
+        const luzAcesa = getRadioValue("luz_painel");
+        const radioNao = document.querySelector('input[name="diagnostico"][value="NÃO"]');
+        const labelNao = document.getElementById("label_diag_nao");
+
+        if (luzAcesa === "SIM") {
+          radioNao.disabled = true;
+          labelNao.style.opacity = "0.4";
+          if (radioNao.checked) {
+            radioNao.checked = false;
+          }
+        } else {
+          radioNao.disabled = false;
+          labelNao.style.opacity = "1";
+        }
+      }
+
       function salvarOuAtualizar() {
         const isDraft = document.getElementById("check_rascunho").checked;
 
-        // VALIDAÇÃO SE NÃO FOR RASCUNHO
         if (!isDraft) {
           const obrigatorios = [
             { id: "mecanico_responsavel", nome: "MECÂNICO RESPONSÁVEL" },
@@ -1689,7 +1185,6 @@
             { id: "veiculo_km", nome: "KM ATUAL" },
             { id: "veiculo_ano_modelo", nome: "ANO/MODELO" },
             { id: "veiculo_cor", nome: "COR" },
-            // Opcionais: ultima_revisao_km, ultima_revisao_data, servico_solicitado
           ];
 
           for (let campo of obrigatorios) {
@@ -1702,30 +1197,23 @@
           }
 
           const comb = document.getElementById("nivel_combustivel").value;
-          if (!comb) {
-            alert("Selecione o NÍVEL DE COMBUSTÍVEL");
-            return;
-          }
+          if (!comb) { alert("Selecione o NÍVEL DE COMBUSTÍVEL"); return; }
+          if (!getRadioValue("combustivel")) { alert("Selecione o TIPO DE COMBUSTÍVEL"); return; }
+          if (!getRadioValue("cambio")) { alert("Selecione o CÂMBIO"); return; }
+          if (!getRadioValue("documento_no_veiculo")) { alert("Informe se o DOCUMENTO está no veículo"); return; }
+          if (!getRadioValue("portas")) { alert("Informe a quantidade de PORTAS"); return; }
 
-          if (!getRadioValue("combustivel")) {
-            alert("Selecione o TIPO DE COMBUSTÍVEL");
+          if (!getRadioValue("luz_painel")) { alert("Informe se há LUZ DE PAINEL ACESA"); return; }
+          const luzPainel = getRadioValue("luz_painel");
+          const diag = getRadioValue("diagnostico");
+          
+          if (luzPainel === "SIM" && (!diag || diag === "NÃO")) {
+            alert("ATENÇÃO: Como há luz de painel acesa, o DIAGNÓSTICO É OBRIGATÓRIO. Selecione a opção Popular ou Premium.");
             return;
           }
-          if (!getRadioValue("cambio")) {
-            alert("Selecione o CÂMBIO");
-            return;
-          }
-          if (!getRadioValue("documento_no_veiculo")) {
-            alert("Informe se o DOCUMENTO está no veículo");
-            return;
-          }
-          if (!getRadioValue("portas")) {
-            alert("Informe a quantidade de PORTAS");
-            return;
-          }
+          if (!diag) { alert("Selecione uma opção no Diagnóstico Técnico."); return; }
         }
 
-        // PROCESSO DE SALVAR
         const lista = carregarListaLocal();
         const novo = coletarDadosDoFormulario({ manterId: !!editandoId });
 
@@ -1739,11 +1227,7 @@
         } else {
           lista.unshift(novo);
           salvarListaLocal(lista);
-          alert(
-            novo.status === "RASCUNHO"
-              ? "Rascunho salvo."
-              : "Checklist finalizado e salvo.",
-          );
+          alert(novo.status === "RASCUNHO" ? "Rascunho salvo." : "Checklist finalizado e salvo.");
           limparFormulario(false);
         }
       }
@@ -1755,42 +1239,26 @@
           created_at: manterId ? null : new Date().toISOString(),
           updated_at: new Date().toISOString(),
           status: isDraft ? "RASCUNHO" : "FINALIZADO",
-          mecanico_responsavel: document
-            .getElementById("mecanico_responsavel")
-            .value.toUpperCase(),
+          mecanico_responsavel: document.getElementById("mecanico_responsavel").value.toUpperCase(),
           data_entrada: document.getElementById("data_entrada").value,
           horario_entrada: document.getElementById("horario_entrada").value,
           guincho: getRadioValue("guincho"),
           cliente: {
-            nome_completo: document
-              .getElementById("cliente_nome_completo")
-              .value.toUpperCase(),
+            nome_completo: document.getElementById("cliente_nome_completo").value.toUpperCase(),
             cpf: document.getElementById("cliente_cpf").value,
             cep: document.getElementById("cliente_cep").value,
             uf: document.getElementById("cliente_uf").value,
-            endereco: document
-              .getElementById("cliente_endereco")
-              .value.toUpperCase(),
-            numero: document
-              .getElementById("cliente_numero")
-              .value.toUpperCase(),
-            bairro: document
-              .getElementById("cliente_bairro")
-              .value.toUpperCase(),
-            cidade: document
-              .getElementById("cliente_cidade")
-              .value.toUpperCase(),
+            endereco: document.getElementById("cliente_endereco").value.toUpperCase(),
+            numero: document.getElementById("cliente_numero").value.toUpperCase(),
+            bairro: document.getElementById("cliente_bairro").value.toUpperCase(),
+            cidade: document.getElementById("cliente_cidade").value.toUpperCase(),
             telefone: document.getElementById("cliente_telefone").value,
           },
           veiculo: {
-            chassi: document
-              .getElementById("veiculo_chassi")
-              .value.toUpperCase(),
+            chassi: document.getElementById("veiculo_chassi").value.toUpperCase(),
             placa: document.getElementById("veiculo_placa").value.toUpperCase(),
             marca: document.getElementById("veiculo_marca").value.toUpperCase(),
-            versao: document
-              .getElementById("veiculo_versao")
-              .value.toUpperCase(),
+            versao: document.getElementById("veiculo_versao").value.toUpperCase(),
             km: document.getElementById("veiculo_km").value,
             ano_modelo: document.getElementById("veiculo_ano_modelo").value,
             cor: document.getElementById("veiculo_cor").value.toUpperCase(),
@@ -1798,17 +1266,15 @@
             cambio: getRadioValue("cambio"),
             documento_no_veiculo: getRadioValue("documento_no_veiculo"),
             portas: getRadioValue("portas"),
+            luz_painel: getRadioValue("luz_painel"),
           },
           autorizacoes: { imagem: getRadioValue("auth_imagem") },
           historico: {
-            ultima_revisao_km:
-              document.getElementById("ultima_revisao_km").value,
-            ultima_revisao_data: document.getElementById("ultima_revisao_data")
-              .value,
-            servico_solicitado:
-              document.getElementById("servico_solicitado").value,
-            nivel_combustivel:
-              document.getElementById("nivel_combustivel").value,
+            ultima_revisao_km: document.getElementById("ultima_revisao_km").value,
+            ultima_revisao_data: document.getElementById("ultima_revisao_data").value,
+            servico_solicitado: document.getElementById("servico_solicitado").value,
+            nivel_combustivel: document.getElementById("nivel_combustivel").value,
+            diagnostico: getRadioValue("diagnostico"),
           },
         };
         if (manterId) {
@@ -1840,14 +1306,9 @@
       function fecharModal(id) {
         document.getElementById(id).classList.add("hidden");
       }
-      function agruparPorCliente(lista) {
-        /* mesma logica */
-      }
 
       function renderizarClientes() {
-        const termo = (document.getElementById("busca-historico").value || "")
-          .trim()
-          .toUpperCase();
+        const termo = (document.getElementById("busca-historico").value || "").trim().toUpperCase();
         const tbody = document.getElementById("lista-clientes");
         tbody.innerHTML = "";
         const lista = carregarListaLocal();
@@ -1859,22 +1320,12 @@
             mapa.get(n).push(item);
           }
         });
-        const clientes = Array.from(mapa.entries())
-          .map(([nome, items]) => {
-            const ultimo = items.reduce((a, b) =>
-              a.created_at > b.created_at ? a : b,
-            );
+        const clientes = Array.from(mapa.entries()).map(([nome, items]) => {
+            const ultimo = items.reduce((a, b) => a.created_at > b.created_at ? a : b);
             return { nome, total: items.length, ultimo };
-          })
-          .sort((a, b) =>
-            (b.ultimo.created_at || "").localeCompare(
-              a.ultimo.created_at || "",
-            ),
-          );
-        const filtrados = clientes.filter(
-          (c) => !termo || c.nome.includes(termo),
-        );
-
+          }).sort((a, b) => (b.ultimo.created_at || "").localeCompare(a.ultimo.created_at || ""));
+          
+        const filtrados = clientes.filter((c) => !termo || c.nome.includes(termo));
         const inicio = (paginaClientes - 1) * clientesPorPagina;
         const pagina = filtrados.slice(inicio, inicio + clientesPorPagina);
 
@@ -1886,15 +1337,13 @@
         pagina.forEach((c) => {
           tbody.innerHTML += `<tr><td>${c.nome}</td><td>${c.total}</td><td>${formatarDataHoraISO(c.ultimo.created_at)}</td><td><button class="icon-btn" onclick="abrirCliente('${c.nome}')"><i class="ph ph-list-bullets"></i></button></td></tr>`;
         });
-        document.getElementById("page-info-clientes").innerText =
-          `Página ${paginaClientes}`;
+        document.getElementById("page-info-clientes").innerText = `Página ${paginaClientes}`;
       }
 
       function abrirCliente(nomeCliente) {
         clienteAtualNome = nomeCliente;
         limiteChecklistsCliente = 20;
-        document.getElementById("titulo-cliente").innerHTML =
-          `<i class="ph ph-user"></i> ${nomeCliente}`;
+        document.getElementById("titulo-cliente").innerHTML = `<i class="ph ph-user"></i> ${nomeCliente}`;
         document.getElementById("modal-cliente").classList.remove("hidden");
         renderizarChecklistsDoCliente(nomeCliente);
       }
@@ -1908,15 +1357,9 @@
         const tbody = document.getElementById("lista-checklists-cliente");
         tbody.innerHTML = "";
         const lista = carregarListaLocal();
-        const items = lista
-          .filter(
-            (x) =>
-              normalizarNomeCliente(x?.cliente?.nome_completo || "") ===
-              normalizarNomeCliente(nomeCliente),
-          )
-          .sort((a, b) =>
-            (b.created_at || "").localeCompare(a.created_at || ""),
-          );
+        const items = lista.filter((x) => normalizarNomeCliente(x?.cliente?.nome_completo || "") === normalizarNomeCliente(nomeCliente))
+          .sort((a, b) => (b.created_at || "").localeCompare(a.created_at || ""));
+          
         if (items.length === 0) {
           tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;">Vazio.</td></tr>`;
           return;
@@ -1924,12 +1367,8 @@
 
         items.slice(0, limiteChecklistsCliente).forEach((item) => {
           const isRascunho = item.status === "RASCUNHO";
-          const stBadge = isRascunho
-            ? '<span class="badge draft">RASCUNHO</span>'
-            : '<span class="badge final">FINALIZADO</span>';
-          const btnPrint = !isRascunho
-            ? `<button class="icon-btn" onclick="imprimirChecklist('${item.id}')"><i class="ph ph-printer"></i></button>`
-            : "";
+          const stBadge = isRascunho ? '<span class="badge draft">RASCUNHO</span>' : '<span class="badge final">FINALIZADO</span>';
+          const btnPrint = !isRascunho ? `<button class="icon-btn" onclick="imprimirChecklist('${item.id}')"><i class="ph ph-printer"></i></button>` : "";
           tbody.innerHTML += `<tr><td>${stBadge}</td><td>${item.veiculo.placa}</td><td>${item.veiculo.marca} ${item.veiculo.versao}</td><td>${formatarDataHoraISO(item.created_at)}</td><td><div class="row-actions">${btnPrint}<button class="icon-btn" onclick="editarChecklist('${item.id}')"><i class="ph ph-pencil-simple"></i></button><button class="icon-btn delete" onclick="excluirChecklist('${item.id}')"><i class="ph ph-trash"></i></button></div></td></tr>`;
         });
       }
@@ -1938,24 +1377,22 @@
         const item = buscarChecklistPorId(id);
         if (!item) return alert("Erro.");
         editandoId = id;
-        document.getElementById("mecanico_responsavel").value =
-          item.mecanico_responsavel;
+        document.getElementById("mecanico_responsavel").value = item.mecanico_responsavel;
         preencherFormularioComDadosDoCadastro(item);
         document.getElementById("data_entrada").value = item.data_entrada;
         document.getElementById("horario_entrada").value = item.horario_entrada;
         setRadioValue("guincho", item.guincho);
-        if (item.autorizacoes)
-          setRadioValue("auth_imagem", item.autorizacoes.imagem);
-        document.getElementById("ultima_revisao_km").value =
-          item.historico.ultima_revisao_km;
-        document.getElementById("ultima_revisao_data").value =
-          item.historico.ultima_revisao_data;
-        document.getElementById("servico_solicitado").value =
-          item.historico.servico_solicitado;
-        if (item.historico.nivel_combustivel)
-          setFuelLevelByText(item.historico.nivel_combustivel);
-        document.getElementById("check_rascunho").checked =
-          item.status === "RASCUNHO";
+        if (item.autorizacoes) setRadioValue("auth_imagem", item.autorizacoes.imagem);
+        document.getElementById("ultima_revisao_km").value = item.historico.ultima_revisao_km;
+        document.getElementById("ultima_revisao_data").value = item.historico.ultima_revisao_data;
+        document.getElementById("servico_solicitado").value = item.historico.servico_solicitado;
+        if (item.historico.nivel_combustivel) setFuelLevelByText(item.historico.nivel_combustivel);
+        document.getElementById("check_rascunho").checked = item.status === "RASCUNHO";
+        
+        setRadioValue("luz_painel", item.veiculo.luz_painel || "NÃO");
+        setRadioValue("diagnostico", item.historico.diagnostico || "NÃO");
+        verificarLuzPainel();
+
         atualizarUIEdicao();
         fecharModal("modal-cliente");
         fecharModal("modal-historico");
@@ -1992,24 +1429,24 @@
             .auth-row { margin-bottom: 6px; display: flex; align-items: center; }
             .auth-check { font-family: monospace; font-weight: bold; margin-right: 12px; min-width: 100px; }
             .auth-text { flex: 1; font-weight: bold; text-transform: uppercase; }
-            .page-break { page-break-before: always; margin-top: 30px; }
-            .chk-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-bottom: 1px dashed #bbb; }
             @media print {
               body { margin: 0; padding: 15px; }
               .box-header { background: #ddd !important; -webkit-print-color-adjust: exact; }
-              .page-break { page-break-before: always; }
             }
           </style>
         </head>
         <body>
-          <div class="header"><div class="brand">AUTOCAR <span>BS</span></div><div style="font-size: 16px; font-weight:bold; margin-top:5px;">CHECKLIST DE ENTRADA</div></div>
+          <div class="header">
+            <img src="logo.png" style="max-height: 70px;">
+            <div style="font-size: 16px; font-weight:bold; margin-top:10px;">CHECKLIST DE ENTRADA</div>
+          </div>
           <div class="box"><div class="box-header">DADOS DA ENTRADA</div><div class="box-content"><div class="row"><div class="col"><span class="label">DATA</span><span class="value">${item.data_entrada}</span></div><div class="col"><span class="label">HORA</span><span class="value">${item.horario_entrada}</span></div><div class="col" style="flex:2"><span class="label">MECÂNICO RESPONSÁVEL</span><span class="value">${item.mecanico_responsavel}</span></div><div class="col"><span class="label">GUINCHO?</span><span class="value">${item.guincho}</span></div></div></div></div>
           <div class="box"><div class="box-header">DADOS DO CLIENTE</div><div class="box-content"><div class="row" style="border-bottom:1px solid #eee; margin-bottom:5px; padding-bottom:5px;"><div class="col" style="flex:2"><span class="label">NOME</span><span class="value">${item.cliente.nome_completo}</span></div><div class="col"><span class="label">CPF</span><span class="value">${item.cliente.cpf}</span></div><div class="col"><span class="label">TEL</span><span class="value">${item.cliente.telefone}</span></div></div><div class="row"><div class="col" style="flex:2"><span class="label">ENDEREÇO</span><span class="value">${item.cliente.endereco}, ${item.cliente.numero}</span></div><div class="col"><span class="label">BAIRRO/CIDADE/UF</span><span class="value">${item.cliente.bairro} / ${item.cliente.cidade} / ${item.cliente.uf}</span></div></div></div></div>
           <div class="box"><div class="box-header">DADOS DO VEÍCULO</div><div class="box-content">
             <div class="row" style="border-bottom:1px solid #eee; margin-bottom:5px; padding-bottom:5px;"><div class="col"><span class="label">PLACA</span><span class="value" style="font-size:16px;">${item.veiculo.placa}</span></div><div class="col"><span class="label">MARCA</span><span class="value">${item.veiculo.marca}</span></div><div class="col"><span class="label">VERSÃO</span><span class="value">${item.veiculo.versao}</span></div><div class="col"><span class="label">COR</span><span class="value">${item.veiculo.cor}</span></div></div>
             <div class="row" style="border-bottom:1px solid #eee; margin-bottom:5px; padding-bottom:5px;"><div class="col"><span class="label">ANO</span><span class="value">${item.veiculo.ano_modelo}</span></div><div class="col"><span class="label">KM</span><span class="value">${item.veiculo.km}</span></div><div class="col" style="flex:2"><span class="label">CHASSI</span><span class="value">${item.veiculo.chassi}</span></div></div>
             <div class="row" style="border-bottom:1px solid #eee; margin-bottom:5px; padding-bottom:5px;"><div class="col"><span class="label">COMB.</span><span class="value">${item.veiculo.combustivel}</span></div><div class="col"><span class="label">CÂMBIO</span><span class="value">${item.veiculo.cambio}</span></div><div class="col"><span class="label">PORTAS</span><span class="value">${item.veiculo.portas}</span></div><div class="col"><span class="label">DOC VEÍCULO?</span><span class="value">${item.veiculo.documento_no_veiculo}</span></div></div>
-            <div class="row"><div class="col"><span class="label">NÍVEL COMBUSTÍVEL (ENTRADA)</span><span class="value" style="font-size:16px;">${nivelComb}</span></div></div>
+            <div class="row"><div class="col"><span class="label">NÍVEL COMBUSTÍVEL (ENTRADA)</span><span class="value" style="font-size:16px;">${nivelComb}</span></div><div class="col"><span class="label">LUZ DE PAINEL ACESA?</span><span class="value">${item.veiculo.luz_painel || '-'}</span></div><div class="col" style="flex:2"><span class="label">DIAGNÓSTICO TÉCNICO</span><span class="value" style="color:#EF4444;">${item.historico.diagnostico === 'NÃO' ? 'NÃO SOLICITADO' : 'AUTORIZADO: CARRO ' + item.historico.diagnostico}</span></div></div>
           </div></div>
           <div class="box"><div class="box-header">HISTÓRICO</div><div class="box-content"><div class="row"><div class="col"><span class="label">ÚLTIMA REV. DATA</span><span class="value">${item.historico.ultima_revisao_data || "-"}</span></div><div class="col"><span class="label">ÚLTIMA REV. KM</span><span class="value">${item.historico.ultima_revisao_km || "-"}</span></div></div></div></div>
           <div class="box"><div class="box-header">SERVIÇO SOLICITADO</div><div class="box-content" style="min-height:100px; height:auto;"><span class="value" style="font-weight:normal;">${item.historico.servico_solicitado || "-"}</span></div></div>
@@ -2020,37 +1457,6 @@
              </div>
           </div>
           <div class="footer"><div style="display:flex; justify-content:space-between; gap:30px; margin-top:50px;"><div style="width:45%; text-align:center;"><div style="border-top:1px solid #000; padding-top:5px; font-weight:bold; font-size:11px;">ASSINATURA CLIENTE</div></div><div style="width:45%; text-align:center;"><div style="border-top:1px solid #000; padding-top:5px; font-weight:bold; font-size:11px;">ASSINATURA AUTOCAR BS</div></div></div>${veioDeGuincho ? '<div style="margin-top:40px; text-align:left;"><div style="border-top:1px solid #000; width:45%; padding-top:5px; font-weight:bold; font-size:11px; text-align:center;">ASSINATURA GUINCHO</div></div>' : ""}</div>
-          <div class="page-break"></div>
-          <div class="header"><div class="brand">AUTOCAR <span>BS</span></div><div style="font-size: 16px; font-weight:bold; margin-top:5px;">FOLHA DO MECÂNICO - PLACA: ${item.veiculo.placa}</div></div>
-          <div class="box"><div class="box-header">ENTRADA</div><div class="box-content" style="padding:5px;">
-            <div class="chk-row"><span>Necessidade troca de óleo?</span> <span>( ) SIM ( ) NÃO</span></div>
-            <div class="chk-row"><span>Colocar água limpador para-brisa?</span> <span>( ) SIM ( ) NÃO</span></div>
-            <div class="chk-row"><span>Limpar reservatório partida a frio?</span> <span>( ) SIM ( ) NÃO</span></div>
-            <div class="chk-row"><span>Lavar o motor?</span> <span>( ) SIM ( ) NÃO</span></div>
-            <div class="chk-row"><span>Trocar palhetas?</span> <span>( ) SIM ( ) NÃO</span></div>
-            <div class="chk-row"><span>Lubrificar portas?</span> <span>( ) SIM ( ) NÃO</span></div>
-            <div class="chk-row"><span>Regular freio de mão?</span> <span>( ) SIM ( ) NÃO</span></div>
-            <div class="chk-row"><span>Trocar alguma lâmpada?</span> <span>( ) SIM ( ) NÃO</span></div>
-            <div class="chk-row"><span>TESTE DE BATERIA (Se necessário)</span> <span>( ) OK ( ) RUIM</span></div>
-          </div></div>
-          <div class="box"><div class="box-header">SAÍDA</div><div class="box-content" style="padding:5px;">
-            <div class="chk-row"><span>Executou solicitações do cliente?</span> <span>( ) SIM ( ) NÃO</span></div>
-            <div class="chk-row"><span>Executou checklist de itens?</span> <span>( ) SIM ( ) NÃO</span></div>
-            <div class="chk-row"><span>Limpou marcas de graxa?</span> <span>( ) SIM ( ) NÃO</span></div>
-            <div class="chk-row"><span>Separou peças usadas?</span> <span>( ) SIM ( ) NÃO</span></div>
-            <div class="chk-row"><span>Testou o veículo?</span> <span>( ) SIM ( ) NÃO</span></div>
-            <div class="chk-row"><span>Calibrou os pneus?</span> <span>( ) SIM ( ) NÃO</span></div>
-            <div class="chk-row"><span>Apertou as rodas?</span> <span>( ) SIM ( ) NÃO</span></div>
-            <div class="chk-row"><span>Colocou capinha de parafusos?</span> <span>( ) SIM ( ) NÃO</span></div>
-            <div class="chk-row"><span>Reset luz de manutenção?</span> <span>( ) SIM ( ) NÃO</span></div>
-            <div class="chk-row"><span>Ajuste da hora do painel?</span> <span>( ) SIM ( ) NÃO</span></div>
-            <div class="chk-row"><span>Nível fluído de freio?</span> <span>( ) OK ( ) COMPLETOU</span></div>
-            <div class="chk-row"><span>Nível óleo direção?</span> <span>( ) OK ( ) COMPLETOU</span></div>
-            <div class="chk-row"><span>Nível líquido arrefecimento?</span> <span>( ) OK ( ) COMPLETOU</span></div>
-            <div class="chk-row"><span>Protetor de cárter fixado?</span> <span>( ) OK</span></div>
-          </div></div>
-          <div class="box"><div class="box-header">OBSERVAÇÕES TÉCNICAS</div><div class="box-content" style="height:120px;"></div></div>
-          <div class="footer"><div style="border-top:1px solid #000; width:60%; margin: 60px auto 0 auto; padding-top:5px;">ASSINATURA MECÂNICO RESPONSÁVEL</div><p style="margin-top:15px;">DATA SAÍDA: _____ / _____ / ________</p></div>
         </body>
         </html>
       `;
@@ -2066,12 +1472,16 @@
         if (perguntar && !confirm("Limpar todos os campos?")) return;
         document.querySelectorAll("input, textarea, select").forEach((el) => {
           if (el.type === "radio" || el.type === "checkbox") el.checked = false;
-          else if (el.id !== "data_entrada" && el.id !== "horario_entrada")
-            el.value = "";
+          else if (el.id !== "data_entrada" && el.id !== "horario_entrada") el.value = "";
         });
         setRadioValue("guincho", "NÃO");
         setRadioValue("auth_imagem", "SIM");
         setFuelLevelByText("VAZIO");
+
+        setRadioValue("luz_painel", "NÃO");
+        setRadioValue("diagnostico", "NÃO");
+        verificarLuzPainel();
+
         preencherDataHoraAtual();
         editandoId = null;
         atualizarUIEdicao();
@@ -2084,6 +1494,7 @@
         atualizarUIEdicao();
         atualizarDatalistClientes();
         setFuelLevelByText("VAZIO");
+        verificarLuzPainel();
       };
     </script>
   </body>
