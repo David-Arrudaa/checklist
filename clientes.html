@@ -77,10 +77,9 @@
       .btn-close-modal:hover { color: var(--text-primary); }
 
       .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-      .form-control label { display: block; font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 5px; font-weight: bold; }
+      .form-control label { display: block; font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 5px; font-weight: bold; text-transform: uppercase; }
       .form-control input, .form-control select { width: 100%; padding: 10px; background: var(--bg-input); border: 1px solid var(--border); border-radius: 6px; color: var(--text-primary); outline: none; text-transform: uppercase; }
       .form-control input:focus, .form-control select:focus { border-color: var(--primary); }
-      .form-control input.email-field { text-transform: lowercase; }
       
       .btn { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 20px; border-radius: 6px; border: none; font-weight: 700; cursor: pointer; text-transform: uppercase; font-size: 0.85rem; }
       .btn-primary { background: var(--primary); color: white; }
@@ -90,14 +89,14 @@
         .form-grid { grid-template-columns: 1fr; }
         .card-title { flex-direction: column; align-items: flex-start; gap: 15px; }
         .card-title .btn { width: 100%; }
-        th:nth-child(3), td:nth-child(3) { display: none; } /* Esconde a coluna contato em celular pequeno para caber */
+        th:nth-child(3), td:nth-child(3) { display: none; }
       }
     </style>
   </head>
   <body>
     <div class="container">
       <header class="header">
-        <img src="logo.png" alt="Logo Autocar BS" style="max-height: 45px; object-fit: contain;">
+        <img src="logo.png" alt="Logo Autocar BS" style="max-height: 80px; object-fit: contain;">
         
         <div class="header-actions">
           <a href="index.html" class="icon-btn-header" title="Voltar para Checklist">
@@ -120,7 +119,7 @@
         </div>
 
         <div class="search-container">
-          <input type="text" id="input-busca" placeholder="Buscar por nome, CPF ou celular..." onkeyup="filtrarClientes()" />
+          <input type="text" id="input-busca" placeholder="Buscar por nome, CPF ou telefone..." onkeyup="filtrarClientes()" />
         </div>
 
         <div class="table-wrapper">
@@ -129,7 +128,7 @@
               <tr>
                 <th>Nome Completo</th>
                 <th>CPF</th>
-                <th>Contato</th>
+                <th>Telefone</th>
                 <th>Localidade</th>
                 <th style="text-align: right;">Ações</th>
               </tr>
@@ -159,35 +158,25 @@
         <div class="form-grid">
           <div class="form-control" style="grid-column: 1 / -1;">
             <label>NOME COMPLETO *</label>
-            <input type="text" id="cli_nome" placeholder="Nome Completo" />
+            <input type="text" id="cli_nome" placeholder="DIGITE O NOME..." />
           </div>
           <div class="form-control">
-            <label>CPF</label>
+            <label>CPF N°</label>
             <input type="text" id="cli_cpf" placeholder="000.000.000-00" maxlength="14" oninput="mascaraCPF(this)" />
           </div>
           <div class="form-control">
-            <label>WHATSAPP / CELULAR *</label>
-            <input type="text" id="cli_celular" placeholder="(00) 00000-0000" maxlength="15" oninput="mascaraTelefone(this)" />
-          </div>
-          <div class="form-control">
-            <label>TELEFONE FIXO</label>
-            <input type="text" id="cli_telefone" placeholder="(00) 0000-0000" maxlength="14" oninput="mascaraTelefone(this)" />
-          </div>
-          <div class="form-control">
-            <label>E-MAIL</label>
-            <input type="email" id="cli_email" class="email-field" placeholder="email@exemplo.com" />
+            <label>TELEFONE N°</label>
+            <input type="text" id="cli_telefone" placeholder="(00) 00000-0000" maxlength="15" oninput="mascaraTelefone(this)" />
           </div>
           
           <div class="form-control">
-            <label>CEP</label>
-            <div style="position: relative;">
-              <input type="text" id="cli_cep" placeholder="00000-000" maxlength="9" oninput="mascaraCEP(this)" onblur="buscarEnderecoPorCep()" />
-            </div>
+            <label>CEP (Busca Automática)</label>
+            <input type="text" id="cli_cep" placeholder="00000-000" maxlength="9" oninput="mascaraCEP(this)" onblur="buscarEnderecoPorCep()" />
           </div>
           <div class="form-control">
-            <label>ESTADO (UF)</label>
+            <label>UF</label>
             <select id="cli_uf">
-              <option value="">Selecione...</option>
+              <option value="">SELECIONE...</option>
               <option value="AC">AC</option><option value="AL">AL</option><option value="AP">AP</option><option value="AM">AM</option>
               <option value="BA">BA</option><option value="CE">CE</option><option value="DF">DF</option><option value="ES">ES</option>
               <option value="GO">GO</option><option value="MA">MA</option><option value="MT">MT</option><option value="MS">MS</option>
@@ -197,21 +186,21 @@
               <option value="SP">SP</option><option value="SE">SE</option><option value="TO">TO</option>
             </select>
           </div>
-          <div class="form-control" style="grid-column: 1 / -1;">
-            <label>ENDEREÇO (Rua, Av.)</label>
-            <input type="text" id="cli_endereco" placeholder="Logradouro" />
-          </div>
           <div class="form-control">
-            <label>NÚMERO</label>
-            <input type="text" id="cli_numero" placeholder="Nº" />
+            <label>CIDADE</label>
+            <input type="text" id="cli_cidade" placeholder="CIDADE" />
           </div>
           <div class="form-control">
             <label>BAIRRO</label>
-            <input type="text" id="cli_bairro" placeholder="Bairro" />
+            <input type="text" id="cli_bairro" placeholder="BAIRRO" />
           </div>
-          <div class="form-control" style="grid-column: 1 / -1;">
-            <label>CIDADE</label>
-            <input type="text" id="cli_cidade" placeholder="Cidade" />
+          <div class="form-control">
+            <label>ENDEREÇO (Rua/Av)</label>
+            <input type="text" id="cli_endereco" placeholder="RUA / AVENIDA" />
+          </div>
+          <div class="form-control">
+            <label>N°</label>
+            <input type="text" id="cli_numero" placeholder="NÚMERO" />
           </div>
         </div>
 
@@ -224,6 +213,7 @@
 
     <script>
       const LS_CLIENTES_DB = "autocar_clientes_db";
+      const DB_KEY_CHECKLISTS = 'autocar_checklists_entrada_v25';
       let clienteEditandoId = null;
       let paginaAtual = 1;
       const clientesPorPagina = 15;
@@ -231,6 +221,7 @@
       // Iniciação
       window.onload = () => {
         carregarTemaSalvo();
+        sincronizarHistorico();
         renderizarTabela();
       };
 
@@ -241,6 +232,43 @@
 
       function salvarBancoClientes(lista) {
         localStorage.setItem(LS_CLIENTES_DB, JSON.stringify(lista));
+      }
+
+      // Função para garantir que os clientes que só estão no checklist venham para a tela de clientes
+      function sincronizarHistorico() {
+        const checklists = JSON.parse(localStorage.getItem(DB_KEY_CHECKLISTS) || '[]');
+        let clientes = lerBancoClientes();
+        let importadosCount = 0;
+
+        checklists.forEach(chk => {
+          const nomeChk = (chk.cliente?.nome_completo || '').toUpperCase().trim();
+          const cpfChk = (chk.cliente?.cpf || '').trim();
+
+          if (!nomeChk || nomeChk === 'UNDEFINED' || nomeChk === 'NULL') return;
+
+          const existe = clientes.some(c => (c.cpf && cpfChk && c.cpf === cpfChk) || (c.nome === nomeChk));
+
+          if (!existe) {
+            clientes.push({
+              id: 'cli_imp_' + Date.now() + Math.random().toString(36).substr(2, 9),
+              nome: nomeChk,
+              cpf: cpfChk,
+              telefone: chk.cliente?.telefone || '',
+              cep: chk.cliente?.cep || '',
+              uf: chk.cliente?.uf || '',
+              endereco: chk.cliente?.endereco || '',
+              numero: chk.cliente?.numero || '',
+              bairro: chk.cliente?.bairro || '',
+              cidade: chk.cliente?.cidade || '',
+              data_registro: new Date().toISOString()
+            });
+            importadosCount++;
+          }
+        });
+
+        if (importadosCount > 0) {
+          salvarBancoClientes(clientes);
+        }
       }
 
       // Renderizar a Tabela
@@ -258,7 +286,7 @@
         const filtrados = lista.filter(c => 
           (c.nome && c.nome.includes(termo)) || 
           (c.cpf && c.cpf.includes(termo)) || 
-          (c.celular && c.celular.includes(termo))
+          (c.telefone && c.telefone.includes(termo))
         );
 
         const totalPaginas = Math.ceil(filtrados.length / clientesPorPagina) || 1;
@@ -275,14 +303,13 @@
         }
 
         pagina.forEach(c => {
-          const contato = c.celular || c.telefone || "-";
-          const local = (c.cidade && c.estado) ? `${c.cidade}/${c.estado}` : (c.cidade || "-");
+          const local = (c.cidade && c.uf) ? `${c.cidade}/${c.uf}` : (c.cidade || "-");
           
           tbody.innerHTML += `
             <tr>
               <td style="font-weight: bold;">${c.nome || '-'}</td>
               <td>${c.cpf || '-'}</td>
-              <td>${contato}</td>
+              <td><i class="ph ph-whatsapp-logo"></i> ${c.telefone || '-'}</td>
               <td>${local}</td>
               <td>
                 <div class="row-actions">
@@ -336,9 +363,7 @@
           id: clienteEditandoId || 'cli_' + Date.now() + Math.random().toString(36).substr(2, 5),
           nome: nome,
           cpf: document.getElementById("cli_cpf").value,
-          celular: document.getElementById("cli_celular").value,
           telefone: document.getElementById("cli_telefone").value,
-          email: document.getElementById("cli_email").value.toLowerCase(),
           cep: document.getElementById("cli_cep").value,
           uf: document.getElementById("cli_uf").value,
           endereco: document.getElementById("cli_endereco").value.toUpperCase(),
@@ -351,9 +376,10 @@
         const lista = lerBancoClientes();
 
         if (clienteEditandoId) {
-          const idx = lista.findIndex(c => c.id === clienteEditandoId);
-          if (idx > -1) {
-            lista[idx] = { ...lista[idx], ...clienteObj, id: clienteEditandoId };
+          const index = lista.findIndex(c => c.id === clienteEditandoId);
+          if (index > -1) {
+            lista[index] = { ...lista[index], ...clienteObj };
+            alert('Cliente atualizado!');
           }
         } else {
           // Verifica duplicidade básica
@@ -363,6 +389,7 @@
              return;
           }
           lista.unshift(clienteObj);
+          alert('Cliente cadastrado!');
         }
 
         salvarBancoClientes(lista);
@@ -380,9 +407,7 @@
         
         document.getElementById("cli_nome").value = cliente.nome || "";
         document.getElementById("cli_cpf").value = cliente.cpf || "";
-        document.getElementById("cli_celular").value = cliente.celular || "";
         document.getElementById("cli_telefone").value = cliente.telefone || "";
-        document.getElementById("cli_email").value = cliente.email || "";
         document.getElementById("cli_cep").value = cliente.cep || "";
         document.getElementById("cli_uf").value = cliente.uf || "";
         document.getElementById("cli_endereco").value = cliente.endereco || "";
@@ -396,7 +421,7 @@
       function excluirCliente(id) {
         if (confirm("Tem certeza que deseja EXCLUIR este cliente permanentemente?")) {
           let lista = lerBancoClientes();
-          lista = lista.filter(c => c.id !== id);
+          lista = lista.filter(c => c.id !== id && c.id !== 'undefined');
           salvarBancoClientes(lista);
           renderizarTabela();
         }
