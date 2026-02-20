@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>AutoCar BS - Clientes</title>
+
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+      /* --- CONFIGURAÇÕES VISUAIS (CSS) --- */
+      :root {
+        --bg-body: #09090a;
+        --bg-card: #202024;
+        --bg-input: #121214;
+        --border: #323238;
+        --text-primary: #e1e1e6;
+        --text-secondary: #8d8d99;
+        --primary: #ef4444;
+        --primary-hover: #dc2626;
+        --danger: #f75a68;
+        --success: #04d361;
+        --warning: #f59e0b;
+        --info: #3b82f6;
+      }
+      html[data-theme="light"] {
+        --bg-body: #f3f4f6;
+        --bg-card: #ffffff;
+        --bg-input: #f9fafb;
+        --border: #d1d5db;
+        --text-primary: #111827;
+        --text-secondary: #6b7280;
+      }
+      * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+      body {
+        font-family: "Segoe UI", "Roboto", sans-serif; background-color: var(--bg-body);
+        color: var(--text-primary); margin: 0; padding: 15px; min-height: 100vh;
+      }
+      .container { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; }
+
+      .header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 15px; border-bottom: 1px solid var(--border); }
+      .header-actions { display: flex; gap: 8px; align-items: center; }
+      
+      .icon-btn-header {
+        background: var(--bg-card); border: 1px solid var(--border); color: var(--text-secondary);
+        cursor: pointer; font-size: 1.2rem; width: 40px; height: 40px; border-radius: 8px;
+        display: flex; align-items: center; justify-content: center; transition: all 0.2s ease;
+        text-decoration: none;
+      }
+      .icon-btn-header:hover { border-color: var(--primary); color: var(--primary); background: var(--bg-input); }
+
+      .card { background: var(--bg-card); border-radius: 8px; padding: 15px; border: 1px solid var(--border); }
+      .card-title { margin: 0 0 15px 0; font-size: 1.1rem; color: var(--text-primary); display: flex; align-items: center; gap: 10px; justify-content: space-between; }
+      
+      .search-container { display: flex; gap: 10px; margin-bottom: 15px; }
+      .search-container input { flex: 1; padding: 12px; background: var(--bg-input); border: 1px solid var(--border); border-radius: 6px; color: var(--text-primary); outline: none; text-transform: uppercase; }
+      .search-container input:focus { border-color: var(--primary); }
+
+      .table-wrapper { overflow-x: auto; border: 1px solid var(--border); border-radius: 8px; }
+      table { width: 100%; border-collapse: collapse; min-width: 600px; }
+      th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
+      th { color: var(--text-secondary); font-size: 0.75rem; text-transform: uppercase; background: rgba(0,0,0,0.2); }
+      html[data-theme="light"] th { background: rgba(0,0,0,0.03); }
+      
+      .row-actions { display: flex; gap: 8px; justify-content: flex-end; align-items: center; flex-wrap: nowrap; min-width: max-content; }
+      .icon-btn { background: transparent; border: 1px solid transparent; color: var(--text-secondary); cursor: pointer; font-size: 1.2rem; padding: 6px; border-radius: 6px; transition: 0.2s; }
+      .icon-btn:hover { border-color: var(--border); color: var(--text-primary); background: rgba(255, 255, 255, 0.06); }
+      html[data-theme="light"] .icon-btn:hover { background: rgba(0, 0, 0, 0.04); }
+      .icon-btn.delete:hover { border-color: var(--danger); color: var(--danger); background: rgba(247, 90, 104, 0.12); }
+
+      /* Modais / Formulário */
+      .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.75); z-index: 2000; display: flex; justify-content: center; align-items: center; padding: 10px; }
+      .hidden { display: none !important; }
+      .modal-form { background: var(--bg-card); padding: 20px; border-radius: 8px; width: 95%; max-width: 800px; max-height: 90vh; overflow-y: auto; border: 1px solid var(--border); }
+      .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-bottom: 15px; }
+      .btn-close-modal { background: transparent; border: none; color: var(--text-secondary); cursor: pointer; font-size: 1.5rem; }
+      .btn-close-modal:hover { color: var(--text-primary); }
+
+      .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+      .form-control label { display: block; font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 5px; font-weight: bold; }
+      .form-control input, .form-control select { width: 100%; padding: 10px; background: var(--bg-input); border: 1px solid var(--border); border-radius: 6px; color: var(--text-primary); outline: none; text-transform: uppercase; }
+      .form-control input:focus, .form-control select:focus { border-color: var(--primary); }
+      .form-control input.email-field { text-transform: lowercase; }
+      
+      .btn { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 20px; border-radius: 6px; border: none; font-weight: 700; cursor: pointer; text-transform: uppercase; font-size: 0.85rem; }
+      .btn-primary { background: var(--primary); color: white; }
+      .btn-secondary { background: transparent; border: 1px solid var(--border); color: var(--text-primary); }
+
+      @media (max-width: 768px) {
+        .form-grid { grid-template-columns: 1fr; }
+        .card-title { flex-direction: column; align-items: flex-start; gap: 15px; }
+        .card-title .btn { width: 100%; }
+        th:nth-child(3), td:nth-child(3) { display: none; } /* Esconde a coluna contato em celular pequeno para caber */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <img src="logo.png" alt="Logo Autocar BS" style="max-height: 45px; object-fit: contain;">
+        
+        <div class="header-actions">
+          <a href="index.html" class="icon-btn-header" title="Voltar para Checklist">
+            <i class="ph ph-clipboard-text"></i>
+          </a>
+          <button class="icon-btn-header" type="button" onclick="alternarTema()" id="btn-tema" title="Mudar Tema">
+            <i class="ph ph-sun"></i>
+          </button>
+        </div>
+      </header>
+
+      <section class="card">
+        <div class="card-title">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <i class="ph ph-users"></i> Gestão de Clientes
+          </div>
+          <button class="btn btn-primary" onclick="abrirModalCliente()">
+            <i class="ph ph-plus-circle"></i> Novo Cliente
+          </button>
+        </div>
+
+        <div class="search-container">
+          <input type="text" id="input-busca" placeholder="Buscar por nome, CPF ou celular..." onkeyup="filtrarClientes()" />
+        </div>
+
+        <div class="table-wrapper">
+          <table id="tabela-clientes">
+            <thead>
+              <tr>
+                <th>Nome Completo</th>
+                <th>CPF</th>
+                <th>Contato</th>
+                <th>Localidade</th>
+                <th style="text-align: right;">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              </tbody>
+          </table>
+        </div>
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
+          <button class="btn btn-secondary" onclick="mudarPagina(-1)">Anterior</button>
+          <span id="page-info" style="color: var(--text-secondary); font-size: 0.9rem;">Página 1</span>
+          <button class="btn btn-secondary" onclick="mudarPagina(1)">Próxima</button>
+        </div>
+      </section>
+    </div>
+
+    <div id="modal-cliente" class="modal-overlay hidden">
+      <div class="modal-form">
+        <div class="modal-header">
+          <h3 id="modal-titulo" style="margin: 0; color: var(--primary); display: flex; gap: 10px; align-items: center;">
+            <i class="ph ph-user-plus"></i> Cadastrar Cliente
+          </h3>
+          <button class="btn-close-modal" onclick="fecharModalCliente()"><i class="ph ph-x"></i></button>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-control" style="grid-column: 1 / -1;">
+            <label>NOME COMPLETO *</label>
+            <input type="text" id="cli_nome" placeholder="Nome Completo" />
+          </div>
+          <div class="form-control">
+            <label>CPF</label>
+            <input type="text" id="cli_cpf" placeholder="000.000.000-00" maxlength="14" oninput="mascaraCPF(this)" />
+          </div>
+          <div class="form-control">
+            <label>WHATSAPP / CELULAR *</label>
+            <input type="text" id="cli_celular" placeholder="(00) 00000-0000" maxlength="15" oninput="mascaraTelefone(this)" />
+          </div>
+          <div class="form-control">
+            <label>TELEFONE FIXO</label>
+            <input type="text" id="cli_telefone" placeholder="(00) 0000-0000" maxlength="14" oninput="mascaraTelefone(this)" />
+          </div>
+          <div class="form-control">
+            <label>E-MAIL</label>
+            <input type="email" id="cli_email" class="email-field" placeholder="email@exemplo.com" />
+          </div>
+          
+          <div class="form-control">
+            <label>CEP</label>
+            <div style="position: relative;">
+              <input type="text" id="cli_cep" placeholder="00000-000" maxlength="9" oninput="mascaraCEP(this)" onblur="buscarEnderecoPorCep()" />
+            </div>
+          </div>
+          <div class="form-control">
+            <label>ESTADO (UF)</label>
+            <select id="cli_uf">
+              <option value="">Selecione...</option>
+              <option value="AC">AC</option><option value="AL">AL</option><option value="AP">AP</option><option value="AM">AM</option>
+              <option value="BA">BA</option><option value="CE">CE</option><option value="DF">DF</option><option value="ES">ES</option>
+              <option value="GO">GO</option><option value="MA">MA</option><option value="MT">MT</option><option value="MS">MS</option>
+              <option value="MG">MG</option><option value="PA">PA</option><option value="PB">PB</option><option value="PR">PR</option>
+              <option value="PE">PE</option><option value="PI">PI</option><option value="RJ">RJ</option><option value="RN">RN</option>
+              <option value="RS">RS</option><option value="RO">RO</option><option value="RR">RR</option><option value="SC">SC</option>
+              <option value="SP">SP</option><option value="SE">SE</option><option value="TO">TO</option>
+            </select>
+          </div>
+          <div class="form-control" style="grid-column: 1 / -1;">
+            <label>ENDEREÇO (Rua, Av.)</label>
+            <input type="text" id="cli_endereco" placeholder="Logradouro" />
+          </div>
+          <div class="form-control">
+            <label>NÚMERO</label>
+            <input type="text" id="cli_numero" placeholder="Nº" />
+          </div>
+          <div class="form-control">
+            <label>BAIRRO</label>
+            <input type="text" id="cli_bairro" placeholder="Bairro" />
+          </div>
+          <div class="form-control" style="grid-column: 1 / -1;">
+            <label>CIDADE</label>
+            <input type="text" id="cli_cidade" placeholder="Cidade" />
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; border-top: 1px solid var(--border); padding-top: 15px;">
+          <button class="btn btn-secondary" onclick="fecharModalCliente()">Cancelar</button>
+          <button class="btn btn-primary" onclick="salvarCliente()"><i class="ph ph-floppy-disk"></i> Salvar Cliente</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const LS_CLIENTES_DB = "autocar_clientes_db";
+      let clienteEditandoId = null;
+      let paginaAtual = 1;
+      const clientesPorPagina = 15;
+
+      // Iniciação
+      window.onload = () => {
+        carregarTemaSalvo();
+        renderizarTabela();
+      };
+
+      function lerBancoClientes() {
+        try { return JSON.parse(localStorage.getItem(LS_CLIENTES_DB)) || []; } 
+        catch (e) { return []; }
+      }
+
+      function salvarBancoClientes(lista) {
+        localStorage.setItem(LS_CLIENTES_DB, JSON.stringify(lista));
+      }
+
+      // Renderizar a Tabela
+      function renderizarTabela() {
+        const termo = document.getElementById("input-busca").value.trim().toUpperCase();
+        const tbody = document.querySelector("#tabela-clientes tbody");
+        tbody.innerHTML = "";
+
+        const lista = lerBancoClientes();
+        
+        // Ordena por nome em ordem alfabética
+        lista.sort((a, b) => (a.nome || "").localeCompare(b.nome || ""));
+
+        // Filtra pelo termo de busca
+        const filtrados = lista.filter(c => 
+          (c.nome && c.nome.includes(termo)) || 
+          (c.cpf && c.cpf.includes(termo)) || 
+          (c.celular && c.celular.includes(termo))
+        );
+
+        const totalPaginas = Math.ceil(filtrados.length / clientesPorPagina) || 1;
+        if (paginaAtual < 1) paginaAtual = 1;
+        if (paginaAtual > totalPaginas) paginaAtual = totalPaginas;
+
+        const inicio = (paginaAtual - 1) * clientesPorPagina;
+        const pagina = filtrados.slice(inicio, inicio + clientesPorPagina);
+
+        if (pagina.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; padding: 20px; color: var(--text-secondary);">Nenhum cliente encontrado.</td></tr>`;
+          document.getElementById("page-info").innerText = `Página 0 de 0`;
+          return;
+        }
+
+        pagina.forEach(c => {
+          const contato = c.celular || c.telefone || "-";
+          const local = (c.cidade && c.estado) ? `${c.cidade}/${c.estado}` : (c.cidade || "-");
+          
+          tbody.innerHTML += `
+            <tr>
+              <td style="font-weight: bold;">${c.nome || '-'}</td>
+              <td>${c.cpf || '-'}</td>
+              <td>${contato}</td>
+              <td>${local}</td>
+              <td>
+                <div class="row-actions">
+                  <button class="icon-btn" onclick="editarCliente('${c.id}')" title="Editar"><i class="ph ph-pencil-simple"></i></button>
+                  <button class="icon-btn delete" onclick="excluirCliente('${c.id}')" title="Excluir"><i class="ph ph-trash"></i></button>
+                </div>
+              </td>
+            </tr>
+          `;
+        });
+
+        document.getElementById("page-info").innerText = `Página ${paginaAtual} de ${totalPaginas}`;
+      }
+
+      function filtrarClientes() {
+        paginaAtual = 1;
+        renderizarTabela();
+      }
+
+      function mudarPagina(delta) {
+        paginaAtual += delta;
+        renderizarTabela();
+      }
+
+      // Modais
+      function abrirModalCliente() {
+        clienteEditandoId = null;
+        document.getElementById("modal-titulo").innerHTML = `<i class="ph ph-user-plus"></i> Cadastrar Cliente`;
+        limparFormularioModal();
+        document.getElementById("modal-cliente").classList.remove("hidden");
+      }
+
+      function fecharModalCliente() {
+        document.getElementById("modal-cliente").classList.add("hidden");
+      }
+
+      function limparFormularioModal() {
+        document.querySelectorAll("#modal-cliente input, #modal-cliente select").forEach(el => el.value = "");
+      }
+
+      // Salvar e Editar
+      function salvarCliente() {
+        const nome = document.getElementById("cli_nome").value.trim().toUpperCase();
+        if (!nome) {
+          alert("O campo NOME COMPLETO é obrigatório!");
+          document.getElementById("cli_nome").focus();
+          return;
+        }
+
+        const clienteObj = {
+          id: clienteEditandoId || 'cli_' + Date.now() + Math.random().toString(36).substr(2, 5),
+          nome: nome,
+          cpf: document.getElementById("cli_cpf").value,
+          celular: document.getElementById("cli_celular").value,
+          telefone: document.getElementById("cli_telefone").value,
+          email: document.getElementById("cli_email").value.toLowerCase(),
+          cep: document.getElementById("cli_cep").value,
+          uf: document.getElementById("cli_uf").value,
+          endereco: document.getElementById("cli_endereco").value.toUpperCase(),
+          numero: document.getElementById("cli_numero").value.toUpperCase(),
+          bairro: document.getElementById("cli_bairro").value.toUpperCase(),
+          cidade: document.getElementById("cli_cidade").value.toUpperCase(),
+          data_registro: new Date().toISOString()
+        };
+
+        const lista = lerBancoClientes();
+
+        if (clienteEditandoId) {
+          const idx = lista.findIndex(c => c.id === clienteEditandoId);
+          if (idx > -1) {
+            lista[idx] = { ...lista[idx], ...clienteObj, id: clienteEditandoId };
+          }
+        } else {
+          // Verifica duplicidade básica
+          const cpf = clienteObj.cpf.replace(/\D/g, "");
+          if (cpf && lista.some(c => c.cpf && c.cpf.replace(/\D/g, "") === cpf)) {
+             alert("ATENÇÃO: Já existe um cliente cadastrado com este CPF.");
+             return;
+          }
+          lista.unshift(clienteObj);
+        }
+
+        salvarBancoClientes(lista);
+        fecharModalCliente();
+        renderizarTabela();
+      }
+
+      function editarCliente(id) {
+        const lista = lerBancoClientes();
+        const cliente = lista.find(c => c.id === id);
+        if (!cliente) return;
+
+        clienteEditandoId = id;
+        document.getElementById("modal-titulo").innerHTML = `<i class="ph ph-pencil-simple"></i> Editar Cliente`;
+        
+        document.getElementById("cli_nome").value = cliente.nome || "";
+        document.getElementById("cli_cpf").value = cliente.cpf || "";
+        document.getElementById("cli_celular").value = cliente.celular || "";
+        document.getElementById("cli_telefone").value = cliente.telefone || "";
+        document.getElementById("cli_email").value = cliente.email || "";
+        document.getElementById("cli_cep").value = cliente.cep || "";
+        document.getElementById("cli_uf").value = cliente.uf || "";
+        document.getElementById("cli_endereco").value = cliente.endereco || "";
+        document.getElementById("cli_numero").value = cliente.numero || "";
+        document.getElementById("cli_bairro").value = cliente.bairro || "";
+        document.getElementById("cli_cidade").value = cliente.cidade || "";
+
+        document.getElementById("modal-cliente").classList.remove("hidden");
+      }
+
+      function excluirCliente(id) {
+        if (confirm("Tem certeza que deseja EXCLUIR este cliente permanentemente?")) {
+          let lista = lerBancoClientes();
+          lista = lista.filter(c => c.id !== id);
+          salvarBancoClientes(lista);
+          renderizarTabela();
+        }
+      }
+
+      // Máscaras e CEP
+      function mascaraCPF(i) {
+        let v = i.value.replace(/\D/g, "");
+        v = v.replace(/(\d{3})(\d)/, "$1.$2").replace(/(\d{3})(\d)/, "$1.$2").replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+        i.value = v;
+      }
+      function mascaraTelefone(i) {
+        let v = i.value.replace(/\D/g, "");
+        v = v.replace(/^(\d{2})(\d)/g, "($1) $2").replace(/(\d)(\d{4})$/, "$1-$2");
+        i.value = v;
+      }
+      function mascaraCEP(i) {
+        let v = i.value.replace(/\D/g, "");
+        v = v.replace(/^(\d{5})(\d)/, "$1-$2");
+        i.value = v;
+      }
+
+      async function buscarEnderecoPorCep() {
+        const cepInput = document.getElementById("cli_cep");
+        let cep = cepInput.value.replace(/\D/g, "");
+        if (cep.length !== 8) return;
+        
+        try {
+          const resp = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+          const data = await resp.json();
+          if (!data.erro) {
+            document.getElementById("cli_endereco").value = data.logradouro.toUpperCase();
+            document.getElementById("cli_bairro").value = data.bairro.toUpperCase();
+            document.getElementById("cli_cidade").value = data.localidade.toUpperCase();
+            document.getElementById("cli_uf").value = data.uf;
+            document.getElementById("cli_numero").focus();
+          } else {
+            alert("CEP não encontrado.");
+          }
+        } catch (e) {
+          console.error("Erro ao buscar CEP", e);
+        }
+      }
+
+      // Tema
+      function alternarTema() {
+        const atual = localStorage.getItem("autocar_theme") || "dark";
+        aplicarTema(atual === "dark" ? "light" : "dark");
+      }
+      function aplicarTema(theme) {
+        if (theme === "light") document.documentElement.setAttribute("data-theme", "light");
+        else document.documentElement.removeAttribute("data-theme");
+        localStorage.setItem("autocar_theme", theme);
+        const icon = document.querySelector("#btn-tema i");
+        if (icon) icon.className = theme === "light" ? "ph ph-moon" : "ph ph-sun";
+      }
+      function carregarTemaSalvo() {
+        aplicarTema(localStorage.getItem("autocar_theme") || "dark");
+      }
+    </script>
+  </body>
+</html>
